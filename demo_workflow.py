@@ -1,4 +1,8 @@
 import marimo
+import os
+from dotenv import load_dotenv
+import dspy
+import google.generativeai as genai
 
 __generated_with = "0.14.17"
 app = marimo.App(width="medium")
@@ -116,17 +120,15 @@ def _(mo):
 
 
 @app.cell
-def _(dspy, load_dotenv, os):
+def _():
     load_dotenv()
-
-    OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
-
-    # Using OpenRouter. Switch to another LLM provider as needed
-    # we recommend gemini-2.0-flash for the cost-efficiency
-    lm = dspy.LM(
-        model="openrouter/google/gemini-2.0-flash-001",
-        api_base="https://openrouter.ai/api/v1",
-        api_key=OPENROUTER_API_KEY,
+    
+    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+    genai.configure(api_key=GEMINI_API_KEY)
+   
+    lm = dspy.GoogleLM(
+        model="gemini-2.0-flash",
+        temperature=0.0,
     )
     dspy.configure(lm=lm)
     return
@@ -159,7 +161,7 @@ def _(BaseModel, Field):
     class Edge(BaseModel):
         label: str = Field(description="Relationship label")
         from_: Node = Field(alias="from", description="Source node label")
-        to: Node = Field(alias="from", description="Target node label")
+        to: Node = Field(alias="to", description="Target node label")
         properties: list[Property] | None
 
     class GraphSchema(BaseModel):

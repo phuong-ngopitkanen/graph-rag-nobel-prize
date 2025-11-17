@@ -1,4 +1,8 @@
 import marimo
+import os
+from dotenv import load_dotenv
+import dspy
+import google.generativeai as genai
 
 __generated_with = "0.14.17"
 app = marimo.App(width="medium")
@@ -40,8 +44,14 @@ def _(KuzuDatabaseManager, mo, run_graph_rag, text_ui):
     with mo.status.spinner(title="Generating answer...") as _spinner:
         result = run_graph_rag([question], db_manager)[0]
 
-    query = result['query']
-    answer = result['answer'].response
+    # Be defensive in case result is empty or missing keys
+    if not result or "query" not in result or "answer" not in result:
+        query = ""
+        answer = "I couldn't generate a valid answer from the graph. Please try another question."
+    else:
+        query = result["query"]
+        answer = result["answer"].response
+
     return answer, query
 
 
@@ -66,7 +76,7 @@ def _(GraphSchema, Query, dspy):
 
         question: str = dspy.InputField()
         input_schema: str = dspy.InputField()
-        pruned_schema: GraphSchema = dspy.OutputField()
+        pruned_schema: dict = dspy.OutputField()
 
 
     class Text2Cypher(dspy.Signature):
@@ -95,7 +105,7 @@ def _(GraphSchema, Query, dspy):
 
         question: str = dspy.InputField()
         input_schema: str = dspy.InputField()
-        query: Query = dspy.OutputField()
+        query: str = dspy.OutputField()
 
 
     class AnswerQuestion(dspy.Signature):
@@ -113,15 +123,19 @@ def _(GraphSchema, Query, dspy):
 
 
 @app.cell
-def _(BAMLAdapter, OPENROUTER_API_KEY, dspy):
-    # Using OpenRouter. Switch to another LLM provider as needed
+def _():
+    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+
     lm = dspy.LM(
-        model="openrouter/google/gemini-2.0-flash-001",
-        api_base="https://openrouter.ai/api/v1",
-        api_key=OPENROUTER_API_KEY,
+        "gemini/gemini-2.0-flash",   
+        api_key=GEMINI_API_KEY,
+        temperature=0.0,
+        max_tokens=1024,           
     )
-    dspy.configure(lm=lm, adapter=BAMLAdapter())
+
+    dspy.configure(lm=lm)
     return
+
 
 
 @app.cell
@@ -219,38 +233,79 @@ def _(
             self.text2cypher = dspy.ChainOfThought(Text2Cypher)
             self.generate_answer = dspy.ChainOfThought(AnswerQuestion)
 
-        def get_cypher_query(self, question: str, input_schema: str) -> Query:
+        @staticmethod
+        def _clean_cypher(query: str) -> str:
+            """Remove ``` and ```cypher fences if the LM returns a code block."""
+            q = query.strip()
+
+            # Strip leading ```... fence
+            if q.startswith("```"):
+                # remove first ```
+                q = q[3:]
+                q = q.lstrip()
+
+                if q.lower().startswith("cypher"):
+                    q = q[len("cypher"):].lstrip()
+
+            # Strip trailing ``` if present
+            if q.endswith("```"):
+                q = q[:-3]
+
+            # If there is any remaining ``` (e.g. middle), cut at first
+            if "```" in q:
+                q = q.split("```", 1)[0]
+
+            return q.strip()
+
+        def get_cypher_query(self, question: str, input_schema: str) -> str:
             prune_result = self.prune(question=question, input_schema=input_schema)
             schema = prune_result.pruned_schema
-            text2cypher_result = self.text2cypher(question=question, input_schema=schema)
-            cypher_query = text2cypher_result.query
+
+            # generate Cypher query
+            text2cypher_result = self.text2cypher(
+                question=question,
+                input_schema=str(schema),
+            )
+            cypher_query: str = text2cypher_result.query
+            # clean markdown fences
+            cypher_query = self._clean_cypher(cypher_query)
             return cypher_query
 
         def run_query(
-            self, db_manager: KuzuDatabaseManager, question: str, input_schema: str
-        ) -> tuple[str, list[Any] | None]:
+            self, db_manager, question: str, input_schema: str
+        ) -> tuple[str, list | None]:
             """
             Run a query synchronously on the database.
             """
-            result = self.get_cypher_query(question=question, input_schema=input_schema)
-            query = result.query
+            query = self.get_cypher_query(question=question, input_schema=input_schema)
+
             try:
-                # Run the query on the database
                 result = db_manager.conn.execute(query)
                 results = [item for row in result for item in row]
             except RuntimeError as e:
                 print(f"Error running query: {e}")
                 results = None
+
             return query, results
 
-        def forward(self, db_manager: KuzuDatabaseManager, question: str, input_schema: str):
-            final_query, final_context = self.run_query(db_manager, question, input_schema)
+        def forward(self, db_manager, question: str, input_schema: str):
+            final_query, final_context = self.run_query(
+                db_manager, question, input_schema
+            )
             if final_context is None:
-                print("Empty results obtained from the graph database. Please retry with a different question.")
-                return {}
+                print(
+                    "Empty results obtained from the graph database. Please retry with a different question."
+                )
+                return {
+                    "question": question,
+                    "query": final_query,
+                    "answer": dspy.Prediction(response="No results from the graph."),
+                }
             else:
                 answer = self.generate_answer(
-                    question=question, cypher_query=final_query, context=str(final_context)
+                    question=question,
+                    cypher_query=final_query,
+                    context=str(final_context),
                 )
                 response = {
                     "question": question,
@@ -259,14 +314,24 @@ def _(
                 }
                 return response
 
-        async def aforward(self, db_manager: KuzuDatabaseManager, question: str, input_schema: str):
-            final_query, final_context = self.run_query(db_manager, question, input_schema)
+        async def aforward(self, db_manager, question: str, input_schema: str):
+            final_query, final_context = self.run_query(
+                db_manager, question, input_schema
+            )
             if final_context is None:
-                print("Empty results obtained from the graph database. Please retry with a different question.")
-                return {}
+                print(
+                    "Empty results obtained from the graph database. Please retry with a different question."
+                )
+                return {
+                    "question": question,
+                    "query": final_query,
+                    "answer": dspy.Prediction(response="No results from the graph."),
+                }
             else:
                 answer = self.generate_answer(
-                    question=question, cypher_query=final_query, context=str(final_context)
+                    question=question,
+                    cypher_query=final_query,
+                    context=str(final_context),
                 )
                 response = {
                     "question": question,
@@ -275,18 +340,22 @@ def _(
                 }
                 return response
 
-
-    def run_graph_rag(questions: list[str], db_manager: KuzuDatabaseManager) -> list[Any]:
+    def run_graph_rag(questions: list[str], db_manager) -> list:
         schema = str(db_manager.get_schema_dict)
         rag = GraphRAG()
-        # Run pipeline
         results = []
         for question in questions:
-            response = rag(db_manager=db_manager, question=question, input_schema=schema)
+            response = rag(
+                db_manager=db_manager,
+                question=question,
+                input_schema=schema,
+            )
             results.append(response)
         return results
 
     return (run_graph_rag,)
+
+
 
 
 @app.cell
