@@ -1,5 +1,21 @@
-.DS_Store
+# Environment variables
+.env
+.env.local
+
+# Python virtual environment
+.venv/
 venv/
 __pycache__/
-.venv/
-.env
+*.pyc
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Kuzu database
+*.kuzu/
+nobel.kuzu/

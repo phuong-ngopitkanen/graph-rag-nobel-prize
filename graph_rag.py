@@ -1,8 +1,4 @@
 import marimo
-import os
-from dotenv import load_dotenv
-import dspy
-import google.generativeai as genai
 
 __generated_with = "0.14.17"
 app = marimo.App(width="medium")
@@ -62,7 +58,7 @@ def _(answer, mo, query):
 
 
 @app.cell
-def _(GraphSchema, Query, dspy):
+def _(dspy):
     class PruneSchema(dspy.Signature):
         """
         Understand the given labelled property graph schema and the given user question. Your task
@@ -119,11 +115,10 @@ def _(GraphSchema, Query, dspy):
         cypher_query: str = dspy.InputField()
         context: str = dspy.InputField()
         response: str = dspy.OutputField()
-    return AnswerQuestion, PruneSchema, Text2Cypher
-
+    return
 
 @app.cell
-def _():
+def _(dspy):
     GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
     lm = dspy.LM(
@@ -135,7 +130,6 @@ def _():
 
     dspy.configure(lm=lm)
     return
-
 
 
 @app.cell
@@ -209,16 +203,170 @@ def _(BaseModel, Field):
     class GraphSchema(BaseModel):
         nodes: list[Node]
         edges: list[Edge]
-    return GraphSchema, Query
+    return
+
+
+@app.cell
+def _():
+    
+    """
+    Few-shot examples for Text2Cypher with different query patterns
+    
+    """
+
+    FEW_SHOT_EXAMPLES = [
+        {
+            "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+            "cypher_query": "MATCH (s:Scholar)-[r1:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') MATCH (s)-[r2:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS toLower('University of Cambridge') RETURN s.fullName"
+        },
+        {
+            "question": "How many scholars won prizes in Chemistry?",
+            "cypher_query": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Chemistry') RETURN COUNT(DISTINCT s) AS count"
+        },
+        {
+            "question": "Who were the mentors of Marie Curie?",
+            "cypher_query": "MATCH (s:Scholar)-[r:MENTORED_BY]->(m:Scholar) WHERE toLower(s.knownName) CONTAINS toLower('Marie Curie') RETURN m.fullName"
+        },
+        {
+            "question": "Which scholars were affiliated with MIT?",
+            "cypher_query": "MATCH (s:Scholar)-[r:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS toLower('MIT') RETURN s.fullName"
+        },
+        {
+            "question": "List all scholars who won prizes in Medicine",
+            "cypher_query": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Medicine') RETURN s.fullName"
+        },
+        {
+            "question": "How many laureates were born in Germany?",
+            "cypher_query": "MATCH (s:Scholar)-[r:BORN_IN]->(c:Country) WHERE toLower(c.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count"
+        },
+        {
+            "question": "Which scholars won prizes and were born in the United States?",
+            "cypher_query": "MATCH (s:Scholar)-[r1:WON]->(p:Prize) MATCH (s)-[r2:BORN_IN]->(c:Country) WHERE toLower(c.name) CONTAINS toLower('United States') RETURN s.fullName"
+        },
+        {
+            "question": "Find all scholars affiliated with Harvard University",
+            "cypher_query": "MATCH (s:Scholar)-[r:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS toLower('Harvard') RETURN s.fullName"
+        },
+        {
+            "question": "Which scholars won prizes in both Physics and Chemistry?",
+            "cypher_query": "MATCH (s:Scholar)-[r1:WON]->(p1:Prize) WHERE toLower(p1.category) CONTAINS toLower('Physics') MATCH (s)-[r2:WON]->(p2:Prize) WHERE toLower(p2.category) CONTAINS toLower('Chemistry') RETURN s.fullName"
+        },
+        {
+            "question": "Count the number of scholars affiliated with University of Oxford",
+            "cypher_query": "MATCH (s:Scholar)-[r:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS toLower('Oxford') RETURN COUNT(DISTINCT s) AS count"
+        },
+        {
+            "question": "Who were the students of Niels Bohr?",
+            "cypher_query": "MATCH (s:Scholar)-[r:MENTORED_BY]->(m:Scholar) WHERE toLower(m.knownName) CONTAINS toLower('Niels Bohr') RETURN s.fullName"
+        },
+        {
+            "question": "Which scholars won prizes in Literature?",
+            "cypher_query": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Literature') RETURN s.fullName"
+        },
+        {
+            "question": "Find scholars affiliated with institutions in Cambridge",
+            "cypher_query": "MATCH (s:Scholar)-[r1:AFFILIATED_WITH]->(i:Institution)-[r2:LOCATED_IN]->(ci:City) WHERE toLower(ci.name) CONTAINS toLower('Cambridge') RETURN s.fullName"
+        },
+        {
+            "question": "How many prizes were won by scholars born in France?",
+            "cypher_query": "MATCH (s:Scholar)-[r1:BORN_IN]->(c:Country) WHERE toLower(c.name) CONTAINS toLower('France') MATCH (s)-[r2:WON]->(p:Prize) RETURN COUNT(p) AS count"
+        },
+        {
+            "question": "Which scholars were mentored by Albert Einstein?",
+            "cypher_query": "MATCH (s:Scholar)-[r:MENTORED_BY]->(m:Scholar) WHERE toLower(m.knownName) CONTAINS toLower('Albert Einstein') RETURN s.fullName"
+        }
+    ]
+    
+    return (FEW_SHOT_EXAMPLES,)
+
+
+@app.cell
+def _(FEW_SHOT_EXAMPLES,np):
+    from sentence_transformers import SentenceTransformer
+    
+    class FewShotRetriever:
+        """Retrieves most similar few-shot examples based on semantic similarity"""
+        
+        def __init__(self, examples: list[dict], model_name: str = "all-MiniLM-L6-v2", k: int = 3):
+            """
+            Initialize the retriever with examples and embedding model.
+            
+            Args:
+                examples: List of dicts with 'question' and 'cypher_query' keys
+                model_name: Name of sentence-transformers model to use
+                k: Number of examples to retrieve
+            """
+            self.examples = examples
+            self.k = k
+            self.model = SentenceTransformer(model_name)
+            
+            # Pre-compute embeddings for all example questions
+            example_questions = [ex["question"] for ex in examples]
+            self.example_embeddings = self.model.encode(
+                example_questions, 
+                convert_to_tensor=False,
+                show_progress_bar=False
+            )
+        
+        def retrieve(self, question: str) -> list[dict]:
+            """
+            Retrieve top-k most similar examples for the given question.
+            
+            Args:
+                question: Input question to find similar examples for
+                
+            Returns:
+                List of top-k most similar example dicts
+            """
+            # Encode the input question
+            question_embedding = self.model.encode(
+                [question], 
+                convert_to_tensor=False,
+                show_progress_bar=False
+            )[0]
+            
+            # Compute cosine similarity with all examples
+            similarities = []
+            for ex_embedding in self.example_embeddings:
+                similarity = np.dot(question_embedding, ex_embedding) / (
+                    np.linalg.norm(question_embedding) * np.linalg.norm(ex_embedding)
+                )
+                similarities.append(similarity)
+            
+            # Get indices of top-k most similar examples
+            top_k_indices = np.argsort(similarities)[-self.k:][::-1]
+            
+            # Return the top-k examples
+            return [self.examples[i] for i in top_k_indices]
+        
+        def format_examples_for_prompt(self, examples: list[dict]) -> str:
+            """
+            Format retrieved examples as a string for the prompt.
+            
+            Args:
+                examples: List of example dicts
+                
+            Returns:
+                Formatted string of examples
+            """
+            formatted = "Here are some similar examples:\n\n"
+            for i, ex in enumerate(examples, 1):
+                formatted += f"Example {i}:\n"
+                formatted += f"Question: {ex['question']}\n"
+                formatted += f"Cypher Query: {ex['cypher_query']}\n\n"
+            return formatted
+    
+    return (FewShotRetriever,)
 
 
 @app.cell
 def _(
     AnswerQuestion,
     Any,
+    FewShotRetriever,
+    FEW_SHOT_EXAMPLES,
     KuzuDatabaseManager,
     PruneSchema,
-    Query,
     Text2Cypher,
     dspy,
 ):
@@ -228,10 +376,29 @@ def _(
         on the Kuzu database, to generate a natural language response.
         """
 
-        def __init__(self):
+        def __init__(self, use_few_shot: bool = True, k_examples: int = 3):
+            """
+            Initialize GraphRAG module.
+            
+            Args:
+                use_few_shot: Whether to use dynamic few-shot examples
+                k_examples: Number of examples to retrieve if use_few_shot is True
+            """
             self.prune = dspy.Predict(PruneSchema)
             self.text2cypher = dspy.ChainOfThought(Text2Cypher)
             self.generate_answer = dspy.ChainOfThought(AnswerQuestion)
+            
+            # Initialize few-shot retriever if enabled
+            self.use_few_shot = use_few_shot
+            if use_few_shot:
+                self.few_shot_retriever = FewShotRetriever(
+                    examples=FEW_SHOT_EXAMPLES,
+                    k=k_examples
+                )
+                print(f"Few-shot retriever initialized with {len(FEW_SHOT_EXAMPLES)} examples (retrieving top-{k_examples})")
+            else:
+                self.few_shot_retriever = None
+                print("Running without few-shot examples")
 
         @staticmethod
         def _clean_cypher(query: str) -> str:
@@ -258,14 +425,40 @@ def _(
             return q.strip()
 
         def get_cypher_query(self, question: str, input_schema: str) -> str:
+            """
+            Generate Cypher query with optional dynamic few-shot examples.
+            
+            Args:
+                question: Natural language question
+                input_schema: Graph schema string
+                
+            Returns:
+                Generated Cypher query string
+            """
+            # Prune schema
             prune_result = self.prune(question=question, input_schema=input_schema)
             schema = prune_result.pruned_schema
 
-            # generate Cypher query
-            text2cypher_result = self.text2cypher(
-                question=question,
-                input_schema=str(schema),
-            )
+            # Retrieve and format few-shot examples if enabled
+            if self.use_few_shot and self.few_shot_retriever:
+                similar_examples = self.few_shot_retriever.retrieve(question)
+                examples_text = self.few_shot_retriever.format_examples_for_prompt(similar_examples)
+                
+                # Add examples to the schema context
+                enhanced_schema = f"{examples_text}\n\nSchema:\n{str(schema)}"
+                
+                # Generate Cypher query with examples
+                text2cypher_result = self.text2cypher(
+                    question=question,
+                    input_schema=enhanced_schema,
+                )
+            else:
+                # Generate without examples (original behavior)
+                text2cypher_result = self.text2cypher(
+                    question=question,
+                    input_schema=str(schema),
+                )
+            
             cypher_query: str = text2cypher_result.query
             # clean markdown fences
             cypher_query = self._clean_cypher(cypher_query)
@@ -340,9 +533,21 @@ def _(
                 }
                 return response
 
-    def run_graph_rag(questions: list[str], db_manager) -> list:
+    def run_graph_rag(questions: list[str], db_manager, use_few_shot: bool = True, k_examples: int = 3) -> list:
+        """
+        Run GraphRAG on a list of questions.
+        
+        Args:
+            questions: List of questions to answer
+            db_manager: Database manager instance
+            use_few_shot: Whether to use dynamic few-shot examples
+            k_examples: Number of examples to retrieve
+            
+        Returns:
+            List of response dicts
+        """
         schema = str(db_manager.get_schema_dict)
-        rag = GraphRAG()
+        rag = GraphRAG(use_few_shot=use_few_shot, k_examples=k_examples)
         results = []
         for question in questions:
             response = rag(
@@ -353,9 +558,7 @@ def _(
             results.append(response)
         return results
 
-    return (run_graph_rag,)
-
-
+    return (GraphRAG, run_graph_rag)
 
 
 @app.cell
@@ -372,6 +575,7 @@ def _():
 
     import dspy
     import kuzu
+    import numpy as np
     from dotenv import load_dotenv
     from dspy.adapters.baml_adapter import BAMLAdapter
     from pydantic import BaseModel, Field
@@ -384,11 +588,13 @@ def _():
         BAMLAdapter,
         BaseModel,
         Field,
-        OPENROUTER_API_KEY,
         dspy,
         kuzu,
         mo,
+        np,
+        os,
     )
+
 
 
 if __name__ == "__main__":
