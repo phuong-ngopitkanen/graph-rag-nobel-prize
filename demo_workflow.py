@@ -2,7 +2,6 @@ import marimo
 import os
 from dotenv import load_dotenv
 import dspy
-import google.generativeai as genai
 
 __generated_with = "0.14.17"
 app = marimo.App(width="medium")
@@ -122,13 +121,15 @@ def _(mo):
 @app.cell
 def _():
     load_dotenv()
-    
     GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-    genai.configure(api_key=GEMINI_API_KEY)
-   
-    lm = dspy.GoogleLM(
-        model="gemini-2.0-flash",
+    if not GEMINI_API_KEY:
+        raise EnvironmentError("Missing GEMINI_API_KEY environment variable.")
+
+    lm = dspy.LM(
+        "gemini/gemini-2.0-flash",
+        api_key=GEMINI_API_KEY,
         temperature=0.0,
+        max_tokens=1024,
     )
     dspy.configure(lm=lm)
     return

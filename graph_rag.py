@@ -1,4 +1,5 @@
 import marimo
+import os
 
 __generated_with = "0.14.17"
 app = marimo.App(width="medium")
@@ -77,30 +78,60 @@ def _(dspy):
 
     class Text2Cypher(dspy.Signature):
         """
-        Translate the question into a valid Cypher query that respects the graph schema.
+        You are an expert Cypher engineer in a GraphRAG system. Your job is to GENERATE and REPAIR Cypher queries using a SELF-REFINEMENT LOOP.
 
-        <SYNTAX>
-        - When matching on Scholar names, ALWAYS match on the `knownName` property
-        - For countries, cities, continents and institutions, you can match on the `name` property
-        - Use short, concise alphanumeric strings as names of variable bindings (e.g., `a1`, `r1`, etc.)
-        - Always strive to respect the relationship direction (FROM/TO) using the schema information.
-        - When comparing string properties, ALWAYS do the following:
-            - Lowercase the property values before comparison
-            - Use the WHERE clause
-            - Use the CONTAINS operator to check for presence of one substring in the other
-        - DO NOT use APOC as the database does not support it.
-        </SYNTAX>
+        Inputs: question, schema, previous_query, error_message
 
-        <RETURN_RESULTS>
-        - If the result is an integer, return it as an integer (not a string).
-        - When returning results, return property values rather than the entire node or relationship.
-        - Do not attempt to coerce data types to number formats (e.g., integer, float) in your results.
-        - NO Cypher keywords should be returned by your query.
-        </RETURN_RESULTS>
+        If previous_query is empty → generate a query (Mode A).
+        If previous_query is not empty → repair it using error_message (Mode B).
+        The system will run EXPLAIN <query>; if it fails, you will be called again.
+
+        ----------------------------------------
+        MODE A — GENERATE
+        ----------------------------------------
+        1. Read the schema and produce a syntactically valid Cypher query that answers the question.
+        2. Follow these rules:
+           - Scholar names: use .knownName
+           - Country/City/Continent/Institution: use .name
+           - Use short variable names (s1, p1, c1, i1…)
+           - Follow relationship directions exactly
+           - String match: WHERE toLower(x) CONTAINS toLower("value")
+           - No APOC
+           - RETURN only properties or COUNT(...)
+           - One Cypher statement, no newlines, comments, fences, EXPLAIN, or CALL
+        3. Output ONLY the query.
+
+        ----------------------------------------
+        MODE B — REPAIR
+        ----------------------------------------
+        1. Use error_message to locate the issue:
+           - Unknown label/property
+           - Unbound variable
+           - Wrong direction
+           - Invalid function/type
+           - Missing/invalid RETURN
+        2. Compare previous_query against the schema and fix ONLY what is required.
+        3. Preserve the meaning of the question.
+           Prefer small local edits unless the query is fundamentally invalid.
+        4. Ensure:
+           - All labels and properties exist in schema
+           - All variables are introduced in MATCH/WITH
+           - Relationship directions and syntax are valid
+        5. Follow all Mode A syntax rules.
+        6. Output ONLY the repaired query.
+
+        ----------------------------------------
+        GLOBAL RULES
+        ----------------------------------------
+        - No explanations, comments, or natural language.
+        - No code fences.
+        - Output exactly ONE valid Cypher statement.
         """
 
         question: str = dspy.InputField()
         input_schema: str = dspy.InputField()
+        previous_query: str | None = dspy.InputField()
+        error_message: str | None = dspy.InputField()
         query: str = dspy.OutputField()
 
 
@@ -424,13 +455,21 @@ def _(
 
             return q.strip()
 
-        def get_cypher_query(self, question: str, input_schema: str) -> str:
+        def get_cypher_query(
+            self,
+            question: str,
+            input_schema: str,
+            previous_query: str | None = None,
+            error_message: str | None = None,
+        ) -> str:
             """
             Generate Cypher query with optional dynamic few-shot examples.
             
             Args:
                 question: Natural language question
                 input_schema: Graph schema string
+                previous_query: Previously generated query when repairing
+                error_message: Error text from EXPLAIN when repairing
                 
             Returns:
                 Generated Cypher query string
@@ -438,6 +477,8 @@ def _(
             # Prune schema
             prune_result = self.prune(question=question, input_schema=input_schema)
             schema = prune_result.pruned_schema
+            previous_query_text = previous_query or ""
+            error_text = error_message or ""
 
             # Retrieve and format few-shot examples if enabled
             if self.use_few_shot and self.few_shot_retriever:
@@ -451,12 +492,16 @@ def _(
                 text2cypher_result = self.text2cypher(
                     question=question,
                     input_schema=enhanced_schema,
+                    previous_query=previous_query_text,
+                    error_message=error_text,
                 )
             else:
                 # Generate without examples (original behavior)
                 text2cypher_result = self.text2cypher(
                     question=question,
                     input_schema=str(schema),
+                    previous_query=previous_query_text,
+                    error_message=error_text,
                 )
             
             cypher_query: str = text2cypher_result.query
@@ -468,18 +513,46 @@ def _(
             self, db_manager, question: str, input_schema: str
         ) -> tuple[str, list | None]:
             """
-            Run a query synchronously on the database.
+            Run a query synchronously on the database with a self-refinement loop.
             """
-            query = self.get_cypher_query(question=question, input_schema=input_schema)
+            max_attempts = 3
+            previous_query = ""
+            error_message = ""
+            final_query = ""
+
+            for _ in range(max_attempts):
+                candidate_query = self.get_cypher_query(
+                    question=question,
+                    input_schema=input_schema,
+                    previous_query=previous_query,
+                    error_message=error_message,
+                )
+
+                if not candidate_query:
+                    break
+
+                try:
+                    db_manager.conn.execute(f"EXPLAIN {candidate_query}")
+                except Exception as e:
+                    previous_query = candidate_query
+                    error_message = str(e)
+                    print("EXPLAIN error:", error_message)
+                    continue
+
+                final_query = candidate_query
+                break
+
+            if not final_query:
+                return previous_query or "", None
 
             try:
-                result = db_manager.conn.execute(query)
+                result = db_manager.conn.execute(final_query)
                 results = [item for row in result for item in row]
             except RuntimeError as e:
                 print(f"Error running query: {e}")
                 results = None
 
-            return query, results
+            return final_query, results
 
         def forward(self, db_manager, question: str, input_schema: str):
             final_query, final_context = self.run_query(
