@@ -1,0 +1,1721 @@
+[
+  {
+    "question": "Which scholars won prizes in Physics and were affiliated with the University of Cambridge?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName AS laureate",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.fullName AS scholar",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.fullName AS scholar"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.fullName AS scholar",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which scholars won prizes in Physics and were affiliated with the University of Cambridge?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which institutions have affiliated Physics laureates?",
+        "similarity": 0.7250388264656067
+      },
+      {
+        "question": "Which Physics laureates were born in Europe and received their prize before 1950?",
+        "similarity": 0.7185248732566833
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "How many scholars won prizes in Chemistry?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "How many scholars won prizes in Chemistry?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which Chemistry prizes had a prize amount greater than 7,000,000?",
+        "similarity": 0.807225227355957
+      },
+      {
+        "question": "How many laureates in Chemistry were born before 1900?",
+        "similarity": 0.7566971778869629
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "List all scholars who won a Medicine prize.",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName AS laureate",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.fullName AS scholar",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.fullName AS scholar"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.fullName AS scholar",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "List all scholars who won a Medicine prize.",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which Medicine prizes were shared by more than one laureate?",
+        "similarity": 0.7580080032348633
+      },
+      {
+        "question": "Which scholars have won more than one Nobel Prize?",
+        "similarity": 0.7340738773345947
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "How many prizes were awarded in Economics after 1980?",
+    "expected_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear > 1980 RETURN COUNT(DISTINCT p) AS count",
+    "initial_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear > 1980 RETURN COUNT(p) AS count",
+    "attempts": [
+      "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear > 1980 RETURN COUNT(p) AS count"
+    ],
+    "final_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear > 1980 RETURN COUNT(p) AS count",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "How many prizes were awarded in Economics after 1980?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "How many Nobel prizes in Economics were awarded between 1990 and 1999?",
+        "similarity": 0.7615354061126709
+      },
+      {
+        "question": "What is the average adjusted prize amount per category for prizes awarded from 1980 onwards?",
+        "similarity": 0.6796762943267822
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which institutions have affiliated Physics laureates?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT i.name AS institution",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT i.name AS institution",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT i.name AS institution"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT i.name AS institution",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which institutions have affiliated Physics laureates?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+        "similarity": 0.8301650881767273
+      },
+      {
+        "question": "Which laureates have been affiliated with more than one institution?",
+        "similarity": 0.8140729069709778
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "How many laureates were born in Germany?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('germany') RETURN COUNT(DISTINCT s) AS count",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('germany') RETURN COUNT(DISTINCT s) AS count",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('germany') RETURN COUNT(DISTINCT s) AS count"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('germany') RETURN COUNT(DISTINCT s) AS count",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "How many laureates were born in Germany?",
+        "similarity": 1.0
+      },
+      {
+        "question": "How many laureates were born in Europe?",
+        "similarity": 0.8959029912948608
+      },
+      {
+        "question": "Which laureates were born in the same city where they later worked?",
+        "similarity": 0.7478922605514526
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName AS laureate",
+    "initial_query": "MATCH (s1:Scholar)-[:BORN_IN]->(c1:City)-[:IS_CITY_IN]->(co1:Country) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution) WHERE toLower(co1.name) CONTAINS toLower('united states') AND toLower(i1.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s1.fullName AS scholar",
+    "attempts": [
+      "MATCH (s1:Scholar)-[:BORN_IN]->(c1:City)-[:IS_CITY_IN]->(co1:Country) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution) WHERE toLower(co1.name) CONTAINS toLower('united states') AND toLower(i1.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s1.fullName AS scholar"
+    ],
+    "final_query": "MATCH (s1:Scholar)-[:BORN_IN]->(c1:City)-[:IS_CITY_IN]->(co1:Country) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution) WHERE toLower(co1.name) CONTAINS toLower('united states') AND toLower(i1.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s1.fullName AS scholar",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which scholars were affiliated with institutions located in the same country where they were born?",
+        "similarity": 0.7168741822242737
+      },
+      {
+        "question": "Which scholars won prizes in Physics and were affiliated with the University of Cambridge?",
+        "similarity": 0.6756460070610046
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "List all institutions located in cities in France.",
+    "expected_query": "MATCH (i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('france') RETURN DISTINCT i.name AS institution",
+    "initial_query": "MATCH (i1:Institution)-[:IS_LOCATED_IN]->(c1:City)-[:IS_CITY_IN]->(co1:Country) WHERE toLower(co1.name) CONTAINS toLower('france') RETURN DISTINCT i1.name AS institution",
+    "attempts": [
+      "MATCH (i1:Institution)-[:IS_LOCATED_IN]->(c1:City)-[:IS_CITY_IN]->(co1:Country) WHERE toLower(co1.name) CONTAINS toLower('france') RETURN DISTINCT i1.name AS institution"
+    ],
+    "final_query": "MATCH (i1:Institution)-[:IS_LOCATED_IN]->(c1:City)-[:IS_CITY_IN]->(co1:Country) WHERE toLower(co1.name) CONTAINS toLower('france') RETURN DISTINCT i1.name AS institution",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "List all institutions located in cities in France.",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which cities have institutions affiliated with Medicine laureates?",
+        "similarity": 0.4350547790527344
+      },
+      {
+        "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+        "similarity": 0.41047415137290955
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "How many laureates were born in Europe?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(con.name) CONTAINS toLower('europe') RETURN COUNT(DISTINCT s) AS count",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(con.name) CONTAINS toLower('europe') RETURN COUNT(DISTINCT s) AS count",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(con.name) CONTAINS toLower('europe') RETURN COUNT(DISTINCT s) AS count"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(con.name) CONTAINS toLower('europe') RETURN COUNT(DISTINCT s) AS count",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "How many laureates were born in Europe?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "How many laureates were born in Germany?",
+        "similarity": 0.8959028720855713
+      },
+      {
+        "question": "Which laureates were born in the same city where they later worked?",
+        "similarity": 0.7941969037055969
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which scholars have won more than one Nobel Prize?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(DISTINCT p) AS numPrizes WHERE numPrizes > 1 RETURN s.knownName AS laureate, numPrizes ORDER BY numPrizes DESC",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(p) AS numPrizes WHERE numPrizes > 1 RETURN s.fullName AS scholar, numPrizesORDER BY numPrizes DESC",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(p) AS numPrizes WHERE numPrizes > 1 RETURN s.fullName AS scholar, numPrizesORDER BY numPrizes DESC",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(p) AS numPrizes WHERE numPrizes > 1 RETURN s.fullName AS scholar, numPrizesORDER BY numPrizes DESC",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(p) AS numPrizes WHERE numPrizes > 1 RETURN s.fullName AS scholar, numPrizesORDER BY numPrizes DESC"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(p) AS numPrizes WHERE numPrizes > 1 RETURN s.fullName AS scholar, numPrizesORDER BY numPrizes DESC",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "Which scholars have won more than one Nobel Prize?",
+        "similarity": 1.0
+      },
+      {
+        "question": "How many scholars won prizes in Chemistry?",
+        "similarity": 0.755120575428009
+      },
+      {
+        "question": "List all scholars who won a Medicine prize.",
+        "similarity": 0.7340739369392395
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 139)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(p) AS numPrizes WHERE numPrizes > 1 RETURN s.fullName AS scholar, numPrizesORDER BY numPrizes DESC\"\n                                                                                                                                            ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 131)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(p) AS numPrizes WHERE numPrizes > 1 RETURN s.fullName AS scholar, numPrizesORDER BY numPrizes DESC\"\n                                                                                                                                    ^^"
+    }
+  },
+  {
+    "question": "For each prize category, how many distinct laureates are there?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates ORDER BY category",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH p.category AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureatesORDER BY category",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH p.category AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureatesORDER BY category",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH p.category AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureatesORDER BY category",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH p.category AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureatesORDER BY category"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH p.category AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureatesORDER BY category",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "For each prize category, how many distinct laureates are there?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "Which institutions have hosted laureates from more than one prize category?",
+        "similarity": 0.8244859576225281
+      },
+      {
+        "question": "Which laureates won a prize before the age of 40?",
+        "similarity": 0.7271925210952759
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": false
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 142)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WITH p.category AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureatesORDER BY category\"\n                                                                                                                                               ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 134)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) WITH p.category AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureatesORDER BY category\"\n                                                                                                                                       ^^"
+    }
+  },
+  {
+    "question": "Which cities have produced at least five laureates by birth?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(DISTINCT s) AS numLaureates WHERE numLaureates >= 5 RETURN ci.name AS city, numLaureates ORDER BY numLaureates DESC",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(s) AS numLaureates WHERE numLaureates >= 5 RETURN ci.name AS city, numLaureatesORDER BY numLaureates DESC",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(s) AS numLaureates WHERE numLaureates >= 5 RETURN ci.name AS city, numLaureatesORDER BY numLaureates DESC",
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(s) AS numLaureates WHERE numLaureates >= 5 RETURN ci.name AS city, numLaureatesORDER BY numLaureates DESC",
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(s) AS numLaureates WHERE numLaureates >= 5 RETURN ci.name AS city, numLaureatesORDER BY numLaureates DESC"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(s) AS numLaureates WHERE numLaureates >= 5 RETURN ci.name AS city, numLaureatesORDER BY numLaureates DESC",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "Which cities have produced at least five laureates by birth?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "Which laureates were born in the same city where they later worked?",
+        "similarity": 0.8194353580474854
+      },
+      {
+        "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+        "similarity": 0.7958646416664124
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 148)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(s) AS numLaureates WHERE numLaureates >= 5 RETURN ci.name AS city, numLaureatesORDER BY numLaureates DESC\"\n                                                                                                                                                     ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 140)\n\"MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(s) AS numLaureates WHERE numLaureates >= 5 RETURN ci.name AS city, numLaureatesORDER BY numLaureates DESC\"\n                                                                                                                                             ^^"
+    }
+  },
+  {
+    "question": "Which laureates died in the same city where they were born?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DIED_IN]->(deathCity:City) WHERE toLower(birthCity.name) = toLower(deathCity.name) RETURN DISTINCT s.knownName AS laureate, birthCity.name AS city ORDER BY laureate",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DIED_IN]->(deathCity:City) WHERE toLower(birthCity.name) = toLower(deathCity.name) RETURN DISTINCT s.fullName AS laureate, birthCity.name AS cityORDER BY laureate",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DIED_IN]->(deathCity:City) WHERE toLower(birthCity.name) = toLower(deathCity.name) RETURN DISTINCT s.fullName AS laureate, birthCity.name AS cityORDER BY laureate",
+      "MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DIED_IN]->(deathCity:City) WHERE toLower(birthCity.name) = toLower(deathCity.name) RETURN DISTINCT s.fullName AS laureate, birthCity.name AS cityORDER BY laureate",
+      "MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DIED_IN]->(deathCity:City) WHERE toLower(birthCity.name) = toLower(deathCity.name) RETURN DISTINCT s.fullName AS laureate, birthCity.name AS cityORDER BY laureate"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DIED_IN]->(deathCity:City) WHERE toLower(birthCity.name) = toLower(deathCity.name) RETURN DISTINCT s.fullName AS laureate, birthCity.name AS cityORDER BY laureate",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "Which laureates died in the same city where they were born?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which laureates were born in the same city where they later worked?",
+        "similarity": 0.9199413061141968
+      },
+      {
+        "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+        "similarity": 0.8164361119270325
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 218)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DIED_IN]->(deathCity:City) WHERE toLower(birthCity.name) = toLower(deathCity.name) RETURN DISTINCT s.fullName AS laureate, birthCity.name AS cityORDER BY laureate\"\n                                                                                                                                                                                                                           ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 210)\n\"MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DIED_IN]->(deathCity:City) WHERE toLower(birthCity.name) = toLower(deathCity.name) RETURN DISTINCT s.fullName AS laureate, birthCity.name AS cityORDER BY laureate\"\n                                                                                                                                                                                                                   ^^"
+    }
+  },
+  {
+    "question": "How many Physics prizes were awarded from 2000 onwards?",
+    "expected_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND p.awardYear >= 2000 RETURN COUNT(DISTINCT p) AS count",
+    "initial_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND p.awardYear >= 2000 RETURN COUNT(p) AS count",
+    "attempts": [
+      "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND p.awardYear >= 2000 RETURN COUNT(p) AS count"
+    ],
+    "final_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND p.awardYear >= 2000 RETURN COUNT(p) AS count",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "How many Physics prizes were awarded from 2000 onwards?",
+        "similarity": 1.0
+      },
+      {
+        "question": "What is the total prize amount awarded in Physics?",
+        "similarity": 0.7993758916854858
+      },
+      {
+        "question": "Which Physics laureates were born in Europe and received their prize before 1950?",
+        "similarity": 0.7100517749786377
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "How many laureates have been affiliated with institutions in the United States?",
+    "expected_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count",
+    "initial_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count",
+    "attempts": [
+      "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "How many laureates have been affiliated with institutions in the United States?",
+        "similarity": 0.9999999403953552
+      },
+      {
+        "question": "Which laureates have been affiliated with more than one institution?",
+        "similarity": 0.9147911667823792
+      },
+      {
+        "question": "For each continent, how many distinct laureates have affiliated institutions there?",
+        "similarity": 0.8002961277961731
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which continents have Chemistry laureates by birth?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent",
+    "initial_query": "MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:BORN_IN]->(ci1:City)-[:IS_CITY_IN]->(co1:Country)-[:IS_COUNTRY_IN]->(con1:Continent) WHERE toLower(p1.category) CONTAINS toLower('chemistry') RETURN DISTINCT con1.name AS continent",
+    "attempts": [
+      "MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:BORN_IN]->(ci1:City)-[:IS_CITY_IN]->(co1:Country)-[:IS_COUNTRY_IN]->(con1:Continent) WHERE toLower(p1.category) CONTAINS toLower('chemistry') RETURN DISTINCT con1.name AS continent"
+    ],
+    "final_query": "MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:BORN_IN]->(ci1:City)-[:IS_CITY_IN]->(co1:Country)-[:IS_COUNTRY_IN]->(con1:Continent) WHERE toLower(p1.category) CONTAINS toLower('chemistry') RETURN DISTINCT con1.name AS continent",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which continents have Chemistry laureates by birth?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which countries have produced laureates in both Physics and Chemistry by birth?",
+        "similarity": 0.8531622886657715
+      },
+      {
+        "question": "For each continent, how many Physics laureates were born there?",
+        "similarity": 0.7817043662071228
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "List all female laureates who won prizes in Chemistry.",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.fullName AS laureate",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.fullName AS laureate"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.fullName AS laureate",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "similarity": 0.9999998807907104
+      },
+      {
+        "question": "How many female laureates have won prizes in Medicine?",
+        "similarity": 0.8087440729141235
+      },
+      {
+        "question": "Which female laureates won Nobel prizes in Physics after 1960?",
+        "similarity": 0.7974675297737122
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "What is the total prize amount awarded in Physics?",
+    "expected_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+    "initial_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+    "attempts": [
+      "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount"
+    ],
+    "final_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "What is the total prize amount awarded in Physics?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "How many Physics prizes were awarded from 2000 onwards?",
+        "similarity": 0.7993759512901306
+      },
+      {
+        "question": "How many different portion values exist for Physics prizes?",
+        "similarity": 0.7375204563140869
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which institutions have hosted laureates from more than one prize category?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WITH i, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE SIZE(categories) > 1 RETURN i.name AS institution, SIZE(categories) AS numCategories ORDER BY numCategories DESC",
+    "initial_query": "MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution) WITH i1, COLLECT(DISTINCT p1.category) AS categories WHERE SIZE(categories) > 1 RETURN i1.name AS institution, SIZE(categories) AS numCategoriesORDER BY numCategories DESC",
+    "attempts": [
+      "MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution) WITH i1, COLLECT(DISTINCT p1.category) AS categories WHERE SIZE(categories) > 1 RETURN i1.name AS institution, SIZE(categories) AS numCategoriesORDER BY numCategories DESC",
+      "MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution) WITH i1, COLLECT(DISTINCT p1.category) AS categories WHERE SIZE(categories) > 1 RETURN i1.name AS institution, SIZE(categories) AS numCategoriesORDER BY numCategories DESC",
+      "MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution) WITH i1, COLLECT(DISTINCT p1.category) AS categories WHERE SIZE(categories) > 1 RETURN i1.name AS institution, SIZE(categories) AS numCategoriesORDER BY numCategories DESC"
+    ],
+    "final_query": "MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution) WITH i1, COLLECT(DISTINCT p1.category) AS categories WHERE SIZE(categories) > 1 RETURN i1.name AS institution, SIZE(categories) AS numCategoriesORDER BY numCategories DESC",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "Which institutions have hosted laureates from more than one prize category?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which laureates have been affiliated with more than one institution?",
+        "similarity": 0.8398369550704956
+      },
+      {
+        "question": "For each prize category, how many distinct laureates are there?",
+        "similarity": 0.8244859576225281
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 244)\n\"EXPLAIN MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution) WITH i1, COLLECT(DISTINCT p1.category) AS categories WHERE SIZE(categories) > 1 RETURN i1.name AS institution, SIZE(categories) AS numCategoriesORDER BY numCategories DESC\"\n                                                                                                                                                                                                                                                     ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 236)\n\"MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution) WITH i1, COLLECT(DISTINCT p1.category) AS categories WHERE SIZE(categories) > 1 RETURN i1.name AS institution, SIZE(categories) AS numCategoriesORDER BY numCategories DESC\"\n                                                                                                                                                                                                                                             ^^"
+    }
+  },
+  {
+    "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WITH ci, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN ci.name AS city",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WITH ci, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN ci.name AS city",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WITH ci, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN ci.name AS city"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WITH ci, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN ci.name AS city",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which institutions have affiliated Physics laureates?",
+        "similarity": 0.830164909362793
+      },
+      {
+        "question": "Which Chemistry laureates have been affiliated with at least two different institutions?",
+        "similarity": 0.8207924365997314
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "For each continent, how many Physics laureates were born there?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureates ORDER BY numLaureates DESC",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "For each continent, how many Physics laureates were born there?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+        "similarity": 0.83213210105896
+      },
+      {
+        "question": "Which Physics laureates were born in cities located in Asia?",
+        "similarity": 0.8044799566268921
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 284)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC\"\n                                                                                                                                                                                                                                                                                             ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 276)\n\"MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC\"\n                                                                                                                                                                                                                                                                                     ^^"
+    }
+  },
+  {
+    "question": "How many laureates died in the United States?",
+    "expected_query": "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count",
+    "initial_query": "MATCH (s1:Scholar)-[:DIED_IN]->(c1:City)-[:IS_CITY_IN]->(co1:Country) WHERE toLower(co1.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s1) AS count",
+    "attempts": [
+      "MATCH (s1:Scholar)-[:DIED_IN]->(c1:City)-[:IS_CITY_IN]->(co1:Country) WHERE toLower(co1.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s1) AS count"
+    ],
+    "final_query": "MATCH (s1:Scholar)-[:DIED_IN]->(c1:City)-[:IS_CITY_IN]->(co1:Country) WHERE toLower(co1.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s1) AS count",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "How many laureates died in the United States?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "For each continent, how many laureates have died there?",
+        "similarity": 0.805767297744751
+      },
+      {
+        "question": "How many laureates have been affiliated with institutions in the United States?",
+        "similarity": 0.7798091173171997
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which Physics laureates were affiliated with institutions located in Japan?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT s.knownName AS laureate, i.name AS institution",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT s.fullName AS laureate, i.name AS institution",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT s.fullName AS laureate, i.name AS institution"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT s.fullName AS laureate, i.name AS institution",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which Physics laureates were affiliated with institutions located in Japan?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which institutions have affiliated Physics laureates?",
+        "similarity": 0.8023607730865479
+      },
+      {
+        "question": "List institutions in Japan that have Chemistry laureates.",
+        "similarity": 0.7907317876815796
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which Chemistry prizes had a prize amount greater than 7,000,000?",
+    "expected_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND p.prizeAmount > 7000000 RETURN p.awardYear AS awardYear, p.prizeAmount AS prizeAmount ORDER BY prizeAmount DESC",
+    "initial_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND p.prizeAmount > 7000000 RETURN p.category, p.prizeAmount",
+    "attempts": [
+      "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND p.prizeAmount > 7000000 RETURN p.category, p.prizeAmount"
+    ],
+    "final_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND p.prizeAmount > 7000000 RETURN p.category, p.prizeAmount",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which Chemistry prizes had a prize amount greater than 7,000,000?",
+        "similarity": 1.0
+      },
+      {
+        "question": "How many scholars won prizes in Chemistry?",
+        "similarity": 0.8072252869606018
+      },
+      {
+        "question": "How many Physics prizes were awarded from 2000 onwards?",
+        "similarity": 0.6963708400726318
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which Economics laureates were affiliated with Harvard University?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(i.name) CONTAINS toLower('harvard') RETURN DISTINCT s.knownName AS laureate",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(i.name) CONTAINS toLower('harvard university') RETURN DISTINCT s.fullName AS laureate",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(i.name) CONTAINS toLower('harvard university') RETURN DISTINCT s.fullName AS laureate"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(i.name) CONTAINS toLower('harvard university') RETURN DISTINCT s.fullName AS laureate",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which Economics laureates were affiliated with Harvard University?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "Which Economics laureates were born in a different country than the country of their affiliated institution?",
+        "similarity": 0.7524337768554688
+      },
+      {
+        "question": "Which laureates have been affiliated with more than one institution?",
+        "similarity": 0.6138909459114075
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which laureates have been affiliated with more than one institution?",
+    "expected_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions > 1 RETURN s.knownName AS laureate, numInstitutions ORDER BY numInstitutions DESC",
+    "initial_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions > 1 RETURN s.fullName AS laureate, numInstitutionsORDER BY numInstitutions DESC",
+    "attempts": [
+      "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions > 1 RETURN s.fullName AS laureate, numInstitutionsORDER BY numInstitutions DESC",
+      "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions > 1 RETURN s.fullName AS laureate, numInstitutionsORDER BY numInstitutions DESC",
+      "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions > 1 RETURN s.fullName AS laureate, numInstitutionsORDER BY numInstitutions DESC"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions > 1 RETURN s.fullName AS laureate, numInstitutionsORDER BY numInstitutions DESC",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "Which laureates have been affiliated with more than one institution?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "How many laureates have been affiliated with institutions in the United States?",
+        "similarity": 0.9147911071777344
+      },
+      {
+        "question": "Which Chemistry laureates have been affiliated with at least two different institutions?",
+        "similarity": 0.8473391532897949
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 185)\n\"EXPLAIN MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions > 1 RETURN s.fullName AS laureate, numInstitutionsORDER BY numInstitutions DESC\"\n                                                                                                                                                                                          ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 177)\n\"MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions > 1 RETURN s.fullName AS laureate, numInstitutionsORDER BY numInstitutions DESC\"\n                                                                                                                                                                                  ^^"
+    }
+  },
+  {
+    "question": "What is the average adjusted prize amount per category for prizes awarded from 1980 onwards?",
+    "expected_query": "MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH toLower(p.category) AS category, AVG(p.prizeAmountAdjusted) AS avgAdjusted RETURN category, avgAdjusted ORDER BY category",
+    "initial_query": "MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH p.category AS category, AVG(p.prizeAmountAdjusted) AS avgAdjusted RETURN category, avgAdjustedORDER BY category",
+    "attempts": [
+      "MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH p.category AS category, AVG(p.prizeAmountAdjusted) AS avgAdjusted RETURN category, avgAdjustedORDER BY category",
+      "MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH p.category AS category, AVG(p.prizeAmountAdjusted) AS avgAdjusted RETURN category, avgAdjustedORDER BY category",
+      "MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH p.category AS category, AVG(p.prizeAmountAdjusted) AS avgAdjusted RETURN category, avgAdjustedORDER BY category"
+    ],
+    "final_query": "MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH p.category AS category, AVG(p.prizeAmountAdjusted) AS avgAdjusted RETURN category, avgAdjustedORDER BY category",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "What is the average adjusted prize amount per category for prizes awarded from 1980 onwards?",
+        "similarity": 1.0
+      },
+      {
+        "question": "How many prizes were awarded in Economics after 1980?",
+        "similarity": 0.679676353931427
+      },
+      {
+        "question": "What is the total prize amount awarded in Physics?",
+        "similarity": 0.6557348966598511
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": false
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 155)\n\"EXPLAIN MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH p.category AS category, AVG(p.prizeAmountAdjusted) AS avgAdjusted RETURN category, avgAdjustedORDER BY category\"\n                                                                                                                                                            ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 147)\n\"MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH p.category AS category, AVG(p.prizeAmountAdjusted) AS avgAdjusted RETURN category, avgAdjustedORDER BY category\"\n                                                                                                                                                    ^^"
+    }
+  },
+  {
+    "question": "Which Chemistry laureates have been affiliated with at least two different institutions?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('chemistry') WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions >= 2 RETURN s.knownName AS laureate, numInstitutions",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions >= 2 RETURN s.fullName AS laureate, numInstitutions",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions >= 2 RETURN s.fullName AS laureate, numInstitutions"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions >= 2 RETURN s.fullName AS laureate, numInstitutions",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which Chemistry laureates have been affiliated with at least two different institutions?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which laureates have been affiliated with more than one institution?",
+        "similarity": 0.8473390340805054
+      },
+      {
+        "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+        "similarity": 0.8207926154136658
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": false
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which Medicine prizes were shared by more than one laureate?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') WITH p, COUNT(DISTINCT s) AS numLaureates WHERE numLaureates > 1 RETURN p.awardYear AS awardYear, p.category AS category, numLaureates ORDER BY awardYear",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') WITH p, COUNT(DISTINCT s) AS numLaureates WHERE numLaureates > 1 RETURN p.awardYear AS awardYear, p.category AS category, numLaureatesORDER BY awardYear",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') WITH p, COUNT(DISTINCT s) AS numLaureates WHERE numLaureates > 1 RETURN p.awardYear AS awardYear, p.category AS category, numLaureatesORDER BY awardYear",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') WITH p, COUNT(DISTINCT s) AS numLaureates WHERE numLaureates > 1 RETURN p.awardYear AS awardYear, p.category AS category, numLaureatesORDER BY awardYear",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') WITH p, COUNT(DISTINCT s) AS numLaureates WHERE numLaureates > 1 RETURN p.awardYear AS awardYear, p.category AS category, numLaureatesORDER BY awardYear"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') WITH p, COUNT(DISTINCT s) AS numLaureates WHERE numLaureates > 1 RETURN p.awardYear AS awardYear, p.category AS category, numLaureatesORDER BY awardYear",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "Which Medicine prizes were shared by more than one laureate?",
+        "similarity": 1.0
+      },
+      {
+        "question": "How many female laureates have won prizes in Medicine?",
+        "similarity": 0.8179386854171753
+      },
+      {
+        "question": "Which countries have produced laureates who won prizes in both Medicine and Physics?",
+        "similarity": 0.8121717572212219
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 239)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') WITH p, COUNT(DISTINCT s) AS numLaureates WHERE numLaureates > 1 RETURN p.awardYear AS awardYear, p.category AS category, numLaureatesORDER BY awardYear\"\n                                                                                                                                                                                                                                                ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 231)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') WITH p, COUNT(DISTINCT s) AS numLaureates WHERE numLaureates > 1 RETURN p.awardYear AS awardYear, p.category AS category, numLaureatesORDER BY awardYear\"\n                                                                                                                                                                                                                                        ^^"
+    }
+  },
+  {
+    "question": "Which female laureates won Nobel prizes in Physics after 1960?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(s.gender) CONTAINS toLower('female') AND p.awardYear > 1960 RETURN DISTINCT s.knownName AS laureate, p.awardYear AS awardYear ORDER BY awardYear ASC",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(s.gender) CONTAINS toLower('female') AND p.awardYear > 1960 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS awardYearORDER BY awardYear ASC",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(s.gender) CONTAINS toLower('female') AND p.awardYear > 1960 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS awardYearORDER BY awardYear ASC",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(s.gender) CONTAINS toLower('female') AND p.awardYear > 1960 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS awardYearORDER BY awardYear ASC",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(s.gender) CONTAINS toLower('female') AND p.awardYear > 1960 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS awardYearORDER BY awardYear ASC"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(s.gender) CONTAINS toLower('female') AND p.awardYear > 1960 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS awardYearORDER BY awardYear ASC",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "Which female laureates won Nobel prizes in Physics after 1960?",
+        "similarity": 1.0
+      },
+      {
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "similarity": 0.7974675893783569
+      },
+      {
+        "question": "Which Physics laureates were born in Europe and received their prize before 1950?",
+        "similarity": 0.7578356266021729
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 240)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(s.gender) CONTAINS toLower('female') AND p.awardYear > 1960 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS awardYearORDER BY awardYear ASC\"\n                                                                                                                                                                                                                                                 ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 232)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(s.gender) CONTAINS toLower('female') AND p.awardYear > 1960 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS awardYearORDER BY awardYear ASC\"\n                                                                                                                                                                                                                                         ^^"
+    }
+  },
+  {
+    "question": "How many Nobel prizes in Economics were awarded between 1990 and 1999?",
+    "expected_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear >= 1990 AND p.awardYear <= 1999 RETURN COUNT(DISTINCT p) AS count",
+    "initial_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear >= 1990 AND p.awardYear <= 1999 RETURN COUNT(DISTINCT p) AS count",
+    "attempts": [
+      "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear >= 1990 AND p.awardYear <= 1999 RETURN COUNT(DISTINCT p) AS count"
+    ],
+    "final_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear >= 1990 AND p.awardYear <= 1999 RETURN COUNT(DISTINCT p) AS count",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "How many Nobel prizes in Economics were awarded between 1990 and 1999?",
+        "similarity": 1.0
+      },
+      {
+        "question": "How many prizes were awarded in Economics after 1980?",
+        "similarity": 0.7615354657173157
+      },
+      {
+        "question": "Which scholars have won more than one Nobel Prize?",
+        "similarity": 0.6751837730407715
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "List institutions in Japan that have Chemistry laureates.",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT i.name AS institution ORDER BY institution",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT i.name AS institutionORDER BY institution",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT i.name AS institutionORDER BY institution",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT i.name AS institutionORDER BY institution",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT i.name AS institutionORDER BY institution"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT i.name AS institutionORDER BY institution",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "List institutions in Japan that have Chemistry laureates.",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "Which Physics laureates were affiliated with institutions located in Japan?",
+        "similarity": 0.7907318472862244
+      },
+      {
+        "question": "Which Chemistry laureates have been affiliated with at least two different institutions?",
+        "similarity": 0.7581040859222412
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 267)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT i.name AS institutionORDER BY institution\"\n                                                                                                                                                                                                                                                                            ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 259)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT i.name AS institutionORDER BY institution\"\n                                                                                                                                                                                                                                                                    ^^"
+    }
+  },
+  {
+    "question": "Which laureates were born in the same city where they later worked?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(affCity:City) WHERE toLower(birthCity.name) = toLower(affCity.name) RETURN DISTINCT s.knownName AS laureate, birthCity.name AS city ORDER BY laureate",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.fullName AS laureate, bCity.name AS cityORDER BY laureate",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.fullName AS laureate, bCity.name AS cityORDER BY laureate",
+      "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.fullName AS laureate, bCity.name AS cityORDER BY laureate",
+      "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.fullName AS laureate, bCity.name AS cityORDER BY laureate"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.fullName AS laureate, bCity.name AS cityORDER BY laureate",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "Which laureates were born in the same city where they later worked?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which laureates died in the same city where they were born?",
+        "similarity": 0.9199413061141968
+      },
+      {
+        "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+        "similarity": 0.8824177384376526
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 240)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.fullName AS laureate, bCity.name AS cityORDER BY laureate\"\n                                                                                                                                                                                                                                                 ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 232)\n\"MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.fullName AS laureate, bCity.name AS cityORDER BY laureate\"\n                                                                                                                                                                                                                                         ^^"
+    }
+  },
+  {
+    "question": "For each continent, how many distinct laureates have affiliated institutions there?",
+    "expected_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureates ORDER BY numLaureates DESC",
+    "initial_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+    "attempts": [
+      "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+      "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+      "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "For each continent, how many distinct laureates have affiliated institutions there?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which laureates were affiliated with institutions on a different continent than their birth continent?",
+        "similarity": 0.845166802406311
+      },
+      {
+        "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+        "similarity": 0.8215620517730713
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 244)\n\"EXPLAIN MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC\"\n                                                                                                                                                                                                                                                     ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 236)\n\"MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC\"\n                                                                                                                                                                                                                                             ^^"
+    }
+  },
+  {
+    "question": "Which countries have produced laureates in both Physics and Chemistry by birth?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN co.name AS country",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN co.name AS country",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN co.name AS country"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN co.name AS country",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which countries have produced laureates in both Physics and Chemistry by birth?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which continents have Chemistry laureates by birth?",
+        "similarity": 0.8531622290611267
+      },
+      {
+        "question": "Which countries have produced laureates who won prizes in both Medicine and Physics?",
+        "similarity": 0.844027578830719
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which cities have institutions affiliated with Medicine laureates?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT ci.name AS city",
+    "initial_query": "MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution)-[:IS_LOCATED_IN]->(c1:City) WHERE toLower(p1.category) CONTAINS toLower('medicine') RETURN DISTINCT c1.name AS city",
+    "attempts": [
+      "MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution)-[:IS_LOCATED_IN]->(c1:City) WHERE toLower(p1.category) CONTAINS toLower('medicine') RETURN DISTINCT c1.name AS city"
+    ],
+    "final_query": "MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution)-[:IS_LOCATED_IN]->(c1:City) WHERE toLower(p1.category) CONTAINS toLower('medicine') RETURN DISTINCT c1.name AS city",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which cities have institutions affiliated with Medicine laureates?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+        "similarity": 0.735020101070404
+      },
+      {
+        "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+        "similarity": 0.7320656180381775
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "How many different portion values exist for Physics prizes?",
+    "expected_query": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN COUNT(DISTINCT r.portion) AS count",
+    "initial_query": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN COUNT(DISTINCT r.portion) AS count",
+    "attempts": [
+      "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN COUNT(DISTINCT r.portion) AS count"
+    ],
+    "final_query": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN COUNT(DISTINCT r.portion) AS count",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "How many different portion values exist for Physics prizes?",
+        "similarity": 0.9999999403953552
+      },
+      {
+        "question": "What is the total prize amount awarded in Physics?",
+        "similarity": 0.7375203967094421
+      },
+      {
+        "question": "How many Physics prizes were awarded from 2000 onwards?",
+        "similarity": 0.6919803023338318
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which Physics laureates were born in Europe and received their prize before 1950?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('europe') AND toLower(p.category) CONTAINS toLower('physics') AND p.awardYear < 1950 RETURN DISTINCT s.knownName AS laureate, p.awardYear AS awardYear ORDER BY awardYear",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('europe') AND toLower(p.category) CONTAINS toLower('physics') AND p.awardYear < 1950 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS awardYearORDER BY awardYear",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('europe') AND toLower(p.category) CONTAINS toLower('physics') AND p.awardYear < 1950 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS awardYearORDER BY awardYear",
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('europe') AND toLower(p.category) CONTAINS toLower('physics') AND p.awardYear < 1950 RETURN DISTINCT s.knownName AS laureate, p.awardYear AS awardYearORDER BY awardYear",
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('europe') AND toLower(p.category) CONTAINS toLower('physics') AND p.awardYear < 1950 RETURN DISTINCT s.knownName AS laureate, p.awardYear AS awardYearORDER BY awardYear"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('europe') AND toLower(p.category) CONTAINS toLower('physics') AND p.awardYear < 1950 RETURN DISTINCT s.knownName AS laureate, p.awardYear AS awardYearORDER BY awardYear",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "Which Physics laureates were born in Europe and received their prize before 1950?",
+        "similarity": 0.9999999403953552
+      },
+      {
+        "question": "Which countries have produced laureates who won prizes in both Medicine and Physics?",
+        "similarity": 0.8071914911270142
+      },
+      {
+        "question": "Which Physics laureates were born in cities located in Asia?",
+        "similarity": 0.795619010925293
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 335)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('europe') AND toLower(p.category) CONTAINS toLower('physics') AND p.awardYear < 1950 RETURN DISTINCT s.knownName AS laureate, p.awardYear AS awardYearORDER BY awardYear\"\n                                                                                                                                                                                                                                                                                                                                                ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 327)\n\"MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('europe') AND toLower(p.category) CONTAINS toLower('physics') AND p.awardYear < 1950 RETURN DISTINCT s.knownName AS laureate, p.awardYear AS awardYearORDER BY awardYear\"\n                                                                                                                                                                                                                                                                                                                                        ^^"
+    }
+  },
+  {
+    "question": "How many female laureates have won prizes in Medicine?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') AND toLower(s.gender) CONTAINS toLower('female') RETURN COUNT(DISTINCT s) AS count",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') AND toLower(s.gender) CONTAINS toLower('female') RETURN COUNT(DISTINCT s) AS count",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') AND toLower(s.gender) CONTAINS toLower('female') RETURN COUNT(DISTINCT s) AS count"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') AND toLower(s.gender) CONTAINS toLower('female') RETURN COUNT(DISTINCT s) AS count",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "How many female laureates have won prizes in Medicine?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which Medicine prizes were shared by more than one laureate?",
+        "similarity": 0.8179386854171753
+      },
+      {
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "similarity": 0.8087441921234131
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which Economics laureates were born in a different country than the country of their affiliated institution?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City)-[:IS_CITY_IN]->(birthCountry:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(affCity:City)-[:IS_CITY_IN]->(affCountry:Country) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(birthCountry.name) <> toLower(affCountry.name) RETURN DISTINCT s.knownName AS laureate, birthCountry.name AS birthCountry, affCountry.name AS affiliationCountry",
+    "initial_query": "MATCH (s1:Scholar)-[:BORN_IN]->(c1:City)-[:IS_CITY_IN]->(country1:Country) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution)-[:IS_LOCATED_IN]->(c2:City)-[:IS_CITY_IN]->(country2:Country) MATCH (s1)-[:WON]->(p1:Prize) WHERE toLower(p1.category) CONTAINS toLower('economics') AND toLower(country1.name) <> toLower(country2.name) RETURN DISTINCT s1.fullName AS laureate, country1.name AS birthCountry, country2.name AS affiliationCountry",
+    "attempts": [
+      "MATCH (s1:Scholar)-[:BORN_IN]->(c1:City)-[:IS_CITY_IN]->(country1:Country) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution)-[:IS_LOCATED_IN]->(c2:City)-[:IS_CITY_IN]->(country2:Country) MATCH (s1)-[:WON]->(p1:Prize) WHERE toLower(p1.category) CONTAINS toLower('economics') AND toLower(country1.name) <> toLower(country2.name) RETURN DISTINCT s1.fullName AS laureate, country1.name AS birthCountry, country2.name AS affiliationCountry"
+    ],
+    "final_query": "MATCH (s1:Scholar)-[:BORN_IN]->(c1:City)-[:IS_CITY_IN]->(country1:Country) MATCH (s1)-[:AFFILIATED_WITH]->(i1:Institution)-[:IS_LOCATED_IN]->(c2:City)-[:IS_CITY_IN]->(country2:Country) MATCH (s1)-[:WON]->(p1:Prize) WHERE toLower(p1.category) CONTAINS toLower('economics') AND toLower(country1.name) <> toLower(country2.name) RETURN DISTINCT s1.fullName AS laureate, country1.name AS birthCountry, country2.name AS affiliationCountry",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which Economics laureates were born in a different country than the country of their affiliated institution?",
+        "similarity": 0.9999999403953552
+      },
+      {
+        "question": "Which Economics laureates were affiliated with Harvard University?",
+        "similarity": 0.7524337768554688
+      },
+      {
+        "question": "Which laureates were affiliated with institutions on a different continent than their birth continent?",
+        "similarity": 0.732891857624054
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which Physics laureates were born in cities located in Asia?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('asia') AND toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.knownName AS laureate",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('asia') AND toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.fullName AS laureate",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('asia') AND toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.fullName AS laureate"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('asia') AND toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.fullName AS laureate",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which Physics laureates were born in cities located in Asia?",
+        "similarity": 1.0
+      },
+      {
+        "question": "For each continent, how many Physics laureates were born there?",
+        "similarity": 0.8044799566268921
+      },
+      {
+        "question": "Which Physics laureates were born in Europe and received their prize before 1950?",
+        "similarity": 0.795619010925293
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which scholars were affiliated with institutions located in the same country where they were born?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country) WHERE toLower(bCountry.name) = toLower(aCountry.name) RETURN DISTINCT s.knownName AS scholar, bCountry.name AS country",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country) WHERE toLower(bCountry.name) = toLower(aCountry.name) RETURN DISTINCT s.fullName AS scholar, bCountry.name AS country",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country) WHERE toLower(bCountry.name) = toLower(aCountry.name) RETURN DISTINCT s.fullName AS scholar, bCountry.name AS country"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country) WHERE toLower(bCountry.name) = toLower(aCountry.name) RETURN DISTINCT s.fullName AS scholar, bCountry.name AS country",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which scholars were affiliated with institutions located in the same country where they were born?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which scholars have affiliations in at least three different countries?",
+        "similarity": 0.8068126440048218
+      },
+      {
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "similarity": 0.7168742418289185
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "How many laureates in Chemistry were born before 1900?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND s.birthDate < 1900 RETURN COUNT(DISTINCT s) AS count",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND s.birthDate < '1900' RETURN COUNT(DISTINCT s) AS count",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND s.birthDate < '1900' RETURN COUNT(DISTINCT s) AS count"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND s.birthDate < '1900' RETURN COUNT(DISTINCT s) AS count",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "How many laureates in Chemistry were born before 1900?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which countries have produced laureates in both Physics and Chemistry by birth?",
+        "similarity": 0.8055294156074524
+      },
+      {
+        "question": "Which continents have Chemistry laureates by birth?",
+        "similarity": 0.7703774571418762
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which institutions have hosted laureates whose birth and death both occurred in Europe?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:DIED_IN]->(dCity:City)-[:IS_CITY_IN]->(dCountry:Country)-[:IS_COUNTRY_IN]->(dCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(bCont.name) CONTAINS toLower('europe') AND toLower(dCont.name) CONTAINS toLower('europe') RETURN DISTINCT i.name AS institution",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:DIED_IN]->(dCity:City)-[:IS_CITY_IN]->(dCountry:Country)-[:IS_COUNTRY_IN]->(dCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(bCont.name) CONTAINS toLower('europe') AND toLower(dCont.name) CONTAINS toLower('europe') RETURN DISTINCT i.name AS institution",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:DIED_IN]->(dCity:City)-[:IS_CITY_IN]->(dCountry:Country)-[:IS_COUNTRY_IN]->(dCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(bCont.name) CONTAINS toLower('europe') AND toLower(dCont.name) CONTAINS toLower('europe') RETURN DISTINCT i.name AS institution"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:DIED_IN]->(dCity:City)-[:IS_CITY_IN]->(dCountry:Country)-[:IS_COUNTRY_IN]->(dCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(bCont.name) CONTAINS toLower('europe') AND toLower(dCont.name) CONTAINS toLower('europe') RETURN DISTINCT i.name AS institution",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which institutions have hosted laureates whose birth and death both occurred in Europe?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+        "similarity": 0.7986043095588684
+      },
+      {
+        "question": "Which laureates died in the same city where they were born?",
+        "similarity": 0.791023850440979
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which laureates were affiliated with institutions on a different continent than their birth continent?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) RETURN DISTINCT s.knownName AS scholar, bCont.name AS birthContinent, aCont.name AS affiliationContinent",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) RETURN DISTINCT s.fullName AS scholar, bCont.name AS birthContinent, aCont.name AS affiliationContinent",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) RETURN DISTINCT s.fullName AS scholar, bCont.name AS birthContinent, aCont.name AS affiliationContinent"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) RETURN DISTINCT s.fullName AS scholar, bCont.name AS birthContinent, aCont.name AS affiliationContinent",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which laureates were affiliated with institutions on a different continent than their birth continent?",
+        "similarity": 1.0
+      },
+      {
+        "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+        "similarity": 0.8721030354499817
+      },
+      {
+        "question": "For each continent, how many distinct laureates have affiliated institutions there?",
+        "similarity": 0.8451668620109558
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which countries have produced laureates who won prizes in both Medicine and Physics?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'medicine' IN categories AND 'physics' IN categories RETURN co.name AS country",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'medicine' IN categories AND 'physics' IN categories RETURN co.name AS country",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'medicine' IN categories AND 'physics' IN categories RETURN co.name AS country"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'medicine' IN categories AND 'physics' IN categories RETURN co.name AS country",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which countries have produced laureates who won prizes in both Medicine and Physics?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "Which countries have produced laureates in both Physics and Chemistry by birth?",
+        "similarity": 0.8440275192260742
+      },
+      {
+        "question": "Which Medicine prizes were shared by more than one laureate?",
+        "similarity": 0.8121718168258667
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which laureates won a prize before the age of 40?",
+    "expected_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE (p.awardYear - s.birthDate) < 40 RETURN DISTINCT s.knownName AS laureate, p.awardYear AS year, (p.awardYear - s.birthDate) AS ageAtAward ORDER BY ageAtAward",
+    "initial_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear - s.birthDate < 40 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS year, (p.awardYear - s.birthDate) AS ageAtAwardORDER BY ageAtAward",
+    "attempts": [
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear - s.birthDate < 40 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS year, (p.awardYear - s.birthDate) AS ageAtAwardORDER BY ageAtAward",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear - s.birthDate < 40 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS year, (p.awardYear - s.birthDate) AS ageAtAwardORDER BY ageAtAward",
+      "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear - s.birthDate < 40 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS year, (p.awardYear - s.birthDate) AS ageAtAwardORDER BY ageAtAward"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear - s.birthDate < 40 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS year, (p.awardYear - s.birthDate) AS ageAtAwardORDER BY ageAtAward",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "Which laureates won a prize before the age of 40?",
+        "similarity": 1.0
+      },
+      {
+        "question": "How many female laureates have won prizes in Medicine?",
+        "similarity": 0.7551631331443787
+      },
+      {
+        "question": "Which institutions have hosted laureates from more than one prize category?",
+        "similarity": 0.7440385818481445
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 189)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear - s.birthDate < 40 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS year, (p.awardYear - s.birthDate) AS ageAtAwardORDER BY ageAtAward\"\n                                                                                                                                                                                              ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 181)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear - s.birthDate < 40 RETURN DISTINCT s.fullName AS laureate, p.awardYear AS year, (p.awardYear - s.birthDate) AS ageAtAwardORDER BY ageAtAward\"\n                                                                                                                                                                                      ^^"
+    }
+  },
+  {
+    "question": "For each continent, how many laureates have died there?",
+    "expected_query": "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS num RETURN con.name AS continent, num ORDER BY num DESC",
+    "initial_query": "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+    "attempts": [
+      "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+      "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+      "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "For each continent, how many laureates have died there?",
+        "similarity": 1.0
+      },
+      {
+        "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+        "similarity": 0.819939136505127
+      },
+      {
+        "question": "How many laureates died in the United States?",
+        "similarity": 0.8057674169540405
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 202)\n\"EXPLAIN MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC\"\n                                                                                                                                                                                                           ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 194)\n\"MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureatesORDER BY numLaureates DESC\"\n                                                                                                                                                                                                   ^^"
+    }
+  },
+  {
+    "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.knownName AS laureate, bCity.name AS city",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.fullName AS laureate, bCity.name AS city",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.fullName AS laureate, bCity.name AS city"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.fullName AS laureate, bCity.name AS city",
+    "explain_success": true,
+    "execution_success": true,
+    "retriever_similarities": [
+      {
+        "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+        "similarity": 1.0000001192092896
+      },
+      {
+        "question": "Which laureates were born in the same city where they later worked?",
+        "similarity": 0.8824176788330078
+      },
+      {
+        "question": "Which laureates died in the same city where they were born?",
+        "similarity": 0.8164361715316772
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "",
+      "execution_error": ""
+    }
+  },
+  {
+    "question": "Which scholars have affiliations in at least three different countries?",
+    "expected_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.knownName AS scholar, numCountries ORDER BY numCountries DESC",
+    "initial_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.fullName AS scholar, numCountriesORDER BY numCountries DESC",
+    "attempts": [
+      "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.fullName AS scholar, numCountriesORDER BY numCountries DESC",
+      "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.fullName AS scholar, numCountriesORDER BY numCountries DESC",
+      "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.fullName AS scholar, numCountriesORDER BY numCountries DESC"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.fullName AS scholar, numCountriesORDER BY numCountries DESC",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "Which scholars have affiliations in at least three different countries?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which scholars were affiliated with institutions located in the same country where they were born?",
+        "similarity": 0.8068127036094666
+      },
+      {
+        "question": "For each continent, how many distinct laureates have affiliated institutions there?",
+        "similarity": 0.6409159898757935
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 233)\n\"EXPLAIN MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.fullName AS scholar, numCountriesORDER BY numCountries DESC\"\n                                                                                                                                                                                                                                          ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 225)\n\"MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.fullName AS scholar, numCountriesORDER BY numCountries DESC\"\n                                                                                                                                                                                                                                  ^^"
+    }
+  },
+  {
+    "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+    "expected_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureates ORDER BY numLaureates DESC",
+    "initial_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureatesORDER BY numLaureates DESC",
+    "attempts": [
+      "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureatesORDER BY numLaureates DESC",
+      "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureatesORDER BY numLaureates DESC",
+      "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureatesORDER BY numLaureates DESC"
+    ],
+    "final_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureatesORDER BY numLaureates DESC",
+    "explain_success": false,
+    "execution_success": false,
+    "retriever_similarities": [
+      {
+        "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+        "similarity": 1.0
+      },
+      {
+        "question": "Which laureates were affiliated with institutions on a different continent than their birth continent?",
+        "similarity": 0.8721029758453369
+      },
+      {
+        "question": "For each continent, how many Physics laureates were born there?",
+        "similarity": 0.8321322202682495
+      }
+    ],
+    "postprocessor_checks": {
+      "lowercase_ok": true,
+      "return_projection_ok": true
+    },
+    "errors": {
+      "explain_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 418)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureatesORDER BY numLaureates DESC\"\n                                                                                                                                                                                                                                                                                                                                                                                                                                   ^^",
+      "execution_error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 410)\n\"MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureatesORDER BY numLaureates DESC\"\n                                                                                                                                                                                                                                                                                                                                                                                                                           ^^"
+    }
+  }
+]

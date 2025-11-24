@@ -1,0 +1,206 @@
+[
+  {
+    "question": "Which scholars won prizes in Physics and were affiliated with the University of Cambridge?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName AS laureate"
+  },
+  {
+    "question": "How many scholars won prizes in Chemistry?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count"
+  },
+  {
+    "question": "List all scholars who won a Medicine prize.",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName AS laureate"
+  },
+  {
+    "question": "How many prizes were awarded in Economics after 1980?",
+    "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear > 1980 RETURN COUNT(DISTINCT p) AS count"
+  },
+  {
+    "question": "Which institutions have affiliated Physics laureates?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT i.name AS institution"
+  },
+  {
+    "question": "How many laureates were born in Germany?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('germany') RETURN COUNT(DISTINCT s) AS count"
+  },
+  {
+    "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName AS laureate"
+  },
+  {
+    "question": "List all institutions located in cities in France.",
+    "cypher_query": "MATCH (i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('france') RETURN DISTINCT i.name AS institution"
+  },
+  {
+    "question": "How many laureates were born in Europe?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(con.name) CONTAINS toLower('europe') RETURN COUNT(DISTINCT s) AS count"
+  },
+  {
+    "question": "Which scholars have won more than one Nobel Prize?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(DISTINCT p) AS numPrizes WHERE numPrizes > 1 RETURN s.knownName AS laureate, numPrizes ORDER BY numPrizes DESC"
+  },
+  {
+    "question": "For each prize category, how many distinct laureates are there?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates ORDER BY category"
+  },
+  {
+    "question": "Which cities have produced at least five laureates by birth?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(DISTINCT s) AS numLaureates WHERE numLaureates >= 5 RETURN ci.name AS city, numLaureates ORDER BY numLaureates DESC"
+  },
+  {
+    "question": "Which laureates died in the same city where they were born?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DIED_IN]->(deathCity:City) WHERE toLower(birthCity.name) = toLower(deathCity.name) RETURN DISTINCT s.knownName AS laureate, birthCity.name AS city ORDER BY laureate"
+  },
+  {
+    "question": "How many Physics prizes were awarded from 2000 onwards?",
+    "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND p.awardYear >= 2000 RETURN COUNT(DISTINCT p) AS count"
+  },
+  {
+    "question": "How many laureates have been affiliated with institutions in the United States?",
+    "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count"
+  },
+  {
+    "question": "Which continents have Chemistry laureates by birth?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent"
+  },
+  {
+    "question": "List all female laureates who won prizes in Chemistry.",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate"
+  },
+  {
+    "question": "What is the total prize amount awarded in Physics?",
+    "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount"
+  },
+  {
+    "question": "Which institutions have hosted laureates from more than one prize category?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WITH i, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE SIZE(categories) > 1 RETURN i.name AS institution, SIZE(categories) AS numCategories ORDER BY numCategories DESC"
+  },
+  {
+    "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WITH ci, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN ci.name AS city"
+  },
+  {
+    "question": "For each continent, how many Physics laureates were born there?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureates ORDER BY numLaureates DESC"
+  },
+  {
+    "question": "How many laureates died in the United States?",
+    "cypher_query": "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count"
+  },
+  {
+    "question": "Which Physics laureates were affiliated with institutions located in Japan?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT s.knownName AS laureate, i.name AS institution"
+  },
+  {
+    "question": "Which Chemistry prizes had a prize amount greater than 7,000,000?",
+    "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND p.prizeAmount > 7000000 RETURN p.awardYear AS awardYear, p.prizeAmount AS prizeAmount ORDER BY prizeAmount DESC"
+  },
+  {
+    "question": "Which Economics laureates were affiliated with Harvard University?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(i.name) CONTAINS toLower('harvard') RETURN DISTINCT s.knownName AS laureate"
+  },
+  {
+    "question": "Which laureates have been affiliated with more than one institution?",
+    "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions > 1 RETURN s.knownName AS laureate, numInstitutions ORDER BY numInstitutions DESC"
+  },
+  {
+    "question": "What is the average adjusted prize amount per category for prizes awarded from 1980 onwards?",
+    "cypher_query": "MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH toLower(p.category) AS category, AVG(p.prizeAmountAdjusted) AS avgAdjusted RETURN category, avgAdjusted ORDER BY category"
+  },
+  {
+    "question": "Which Chemistry laureates have been affiliated with at least two different institutions?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('chemistry') WITH s, COUNT(DISTINCT i) AS numInstitutions WHERE numInstitutions >= 2 RETURN s.knownName AS laureate, numInstitutions"
+  },
+  {
+    "question": "Which Medicine prizes were shared by more than one laureate?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') WITH p, COUNT(DISTINCT s) AS numLaureates WHERE numLaureates > 1 RETURN p.awardYear AS awardYear, p.category AS category, numLaureates ORDER BY awardYear"
+  },
+  {
+    "question": "Which female laureates won Nobel prizes in Physics after 1960?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(s.gender) CONTAINS toLower('female') AND p.awardYear > 1960 RETURN DISTINCT s.knownName AS laureate, p.awardYear AS awardYear ORDER BY awardYear ASC"
+  },
+  {
+    "question": "How many Nobel prizes in Economics were awarded between 1990 and 1999?",
+    "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear >= 1990 AND p.awardYear <= 1999 RETURN COUNT(DISTINCT p) AS count"
+  },
+  {
+    "question": "List institutions in Japan that have Chemistry laureates.",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT i.name AS institution ORDER BY institution"
+  },
+  {
+    "question": "Which laureates were born in the same city where they later worked?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(affCity:City) WHERE toLower(birthCity.name) = toLower(affCity.name) RETURN DISTINCT s.knownName AS laureate, birthCity.name AS city ORDER BY laureate"
+  },
+  {
+    "question": "For each continent, how many distinct laureates have affiliated institutions there?",
+    "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureates ORDER BY numLaureates DESC"
+  },
+  {
+    "question": "Which countries have produced laureates in both Physics and Chemistry by birth?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN co.name AS country"
+  },
+  {
+    "question": "Which cities have institutions affiliated with Medicine laureates?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT ci.name AS city"
+  },
+  {
+    "question": "How many different portion values exist for Physics prizes?",
+    "cypher_query": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN COUNT(DISTINCT r.portion) AS count"
+  },
+  {
+    "question": "Which Physics laureates were born in Europe and received their prize before 1950?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('europe') AND toLower(p.category) CONTAINS toLower('physics') AND p.awardYear < 1950 RETURN DISTINCT s.knownName AS laureate, p.awardYear AS awardYear ORDER BY awardYear"
+  },
+  {
+    "question": "How many female laureates have won prizes in Medicine?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') AND toLower(s.gender) CONTAINS toLower('female') RETURN COUNT(DISTINCT s) AS count"
+  },
+  {
+    "question": "Which Economics laureates were born in a different country than the country of their affiliated institution?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City)-[:IS_CITY_IN]->(birthCountry:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(affCity:City)-[:IS_CITY_IN]->(affCountry:Country) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(birthCountry.name) <> toLower(affCountry.name) RETURN DISTINCT s.knownName AS laureate, birthCountry.name AS birthCountry, affCountry.name AS affiliationCountry"
+  },
+  {
+    "question": "Which Physics laureates were born in cities located in Asia?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('asia') AND toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.knownName AS laureate"
+  },
+  {
+    "question": "Which scholars were affiliated with institutions located in the same country where they were born?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country) WHERE toLower(bCountry.name) = toLower(aCountry.name) RETURN DISTINCT s.knownName AS scholar, bCountry.name AS country"
+  },
+  {
+    "question": "How many laureates in Chemistry were born before 1900?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND s.birthDate < 1900 RETURN COUNT(DISTINCT s) AS count"
+  },
+  {
+    "question": "Which institutions have hosted laureates whose birth and death both occurred in Europe?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:DIED_IN]->(dCity:City)-[:IS_CITY_IN]->(dCountry:Country)-[:IS_COUNTRY_IN]->(dCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(bCont.name) CONTAINS toLower('europe') AND toLower(dCont.name) CONTAINS toLower('europe') RETURN DISTINCT i.name AS institution"
+  },
+  {
+    "question": "Which laureates were affiliated with institutions on a different continent than their birth continent?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) RETURN DISTINCT s.knownName AS scholar, bCont.name AS birthContinent, aCont.name AS affiliationContinent"
+  },
+  {
+    "question": "Which countries have produced laureates who won prizes in both Medicine and Physics?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'medicine' IN categories AND 'physics' IN categories RETURN co.name AS country"
+  },
+  {
+    "question": "Which laureates won a prize before the age of 40?",
+    "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE (p.awardYear - s.birthDate) < 40 RETURN DISTINCT s.knownName AS laureate, p.awardYear AS year, (p.awardYear - s.birthDate) AS ageAtAward ORDER BY ageAtAward"
+  },
+  {
+    "question": "For each continent, how many laureates have died there?",
+    "cypher_query": "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS num RETURN con.name AS continent, num ORDER BY num DESC"
+  },
+  {
+    "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+    "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.knownName AS laureate, bCity.name AS city"
+  },
+  {
+    "question": "Which scholars have affiliations in at least three different countries?",
+    "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.knownName AS scholar, numCountries ORDER BY numCountries DESC"
+  },
+  {
+  "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+  "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureates ORDER BY numLaureates DESC"
+  }
+]

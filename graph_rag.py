@@ -1,5 +1,7 @@
 import marimo
 import os
+import json
+import re
 
 __generated_with = "0.14.17"
 app = marimo.App(width="medium")
@@ -227,7 +229,7 @@ def _(BaseModel, Field):
     class Edge(BaseModel):
         label: str = Field(description="Relationship label")
         from_: Node = Field(alias="from", description="Source node label")
-        to: Node = Field(alias="from", description="Target node label")
+        to: Node = Field(alias="to", description="Target node label")
         properties: list[Property] | None
 
 
@@ -239,75 +241,11 @@ def _(BaseModel, Field):
 
 @app.cell
 def _():
-    
-    """
-    Few-shot examples for Text2Cypher with different query patterns
-    
-    """
+    """Load few-shot examples for Text2Cypher from JSON file."""
 
-    FEW_SHOT_EXAMPLES = [
-        {
-            "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
-            "cypher_query": "MATCH (s:Scholar)-[r1:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') MATCH (s)-[r2:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS toLower('University of Cambridge') RETURN s.fullName"
-        },
-        {
-            "question": "How many scholars won prizes in Chemistry?",
-            "cypher_query": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Chemistry') RETURN COUNT(DISTINCT s) AS count"
-        },
-        {
-            "question": "Who were the mentors of Marie Curie?",
-            "cypher_query": "MATCH (s:Scholar)-[r:MENTORED_BY]->(m:Scholar) WHERE toLower(s.knownName) CONTAINS toLower('Marie Curie') RETURN m.fullName"
-        },
-        {
-            "question": "Which scholars were affiliated with MIT?",
-            "cypher_query": "MATCH (s:Scholar)-[r:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS toLower('MIT') RETURN s.fullName"
-        },
-        {
-            "question": "List all scholars who won prizes in Medicine",
-            "cypher_query": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Medicine') RETURN s.fullName"
-        },
-        {
-            "question": "How many laureates were born in Germany?",
-            "cypher_query": "MATCH (s:Scholar)-[r:BORN_IN]->(c:Country) WHERE toLower(c.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count"
-        },
-        {
-            "question": "Which scholars won prizes and were born in the United States?",
-            "cypher_query": "MATCH (s:Scholar)-[r1:WON]->(p:Prize) MATCH (s)-[r2:BORN_IN]->(c:Country) WHERE toLower(c.name) CONTAINS toLower('United States') RETURN s.fullName"
-        },
-        {
-            "question": "Find all scholars affiliated with Harvard University",
-            "cypher_query": "MATCH (s:Scholar)-[r:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS toLower('Harvard') RETURN s.fullName"
-        },
-        {
-            "question": "Which scholars won prizes in both Physics and Chemistry?",
-            "cypher_query": "MATCH (s:Scholar)-[r1:WON]->(p1:Prize) WHERE toLower(p1.category) CONTAINS toLower('Physics') MATCH (s)-[r2:WON]->(p2:Prize) WHERE toLower(p2.category) CONTAINS toLower('Chemistry') RETURN s.fullName"
-        },
-        {
-            "question": "Count the number of scholars affiliated with University of Oxford",
-            "cypher_query": "MATCH (s:Scholar)-[r:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS toLower('Oxford') RETURN COUNT(DISTINCT s) AS count"
-        },
-        {
-            "question": "Who were the students of Niels Bohr?",
-            "cypher_query": "MATCH (s:Scholar)-[r:MENTORED_BY]->(m:Scholar) WHERE toLower(m.knownName) CONTAINS toLower('Niels Bohr') RETURN s.fullName"
-        },
-        {
-            "question": "Which scholars won prizes in Literature?",
-            "cypher_query": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Literature') RETURN s.fullName"
-        },
-        {
-            "question": "Find scholars affiliated with institutions in Cambridge",
-            "cypher_query": "MATCH (s:Scholar)-[r1:AFFILIATED_WITH]->(i:Institution)-[r2:LOCATED_IN]->(ci:City) WHERE toLower(ci.name) CONTAINS toLower('Cambridge') RETURN s.fullName"
-        },
-        {
-            "question": "How many prizes were won by scholars born in France?",
-            "cypher_query": "MATCH (s:Scholar)-[r1:BORN_IN]->(c:Country) WHERE toLower(c.name) CONTAINS toLower('France') MATCH (s)-[r2:WON]->(p:Prize) RETURN COUNT(p) AS count"
-        },
-        {
-            "question": "Which scholars were mentored by Albert Einstein?",
-            "cypher_query": "MATCH (s:Scholar)-[r:MENTORED_BY]->(m:Scholar) WHERE toLower(m.knownName) CONTAINS toLower('Albert Einstein') RETURN s.fullName"
-        }
-    ]
-    
+    with open("data/few_shot_examples.json", "r", encoding="utf-8") as f:
+        FEW_SHOT_EXAMPLES = json.load(f)
+
     return (FEW_SHOT_EXAMPLES,)
 
 
@@ -321,11 +259,6 @@ def _(FEW_SHOT_EXAMPLES,np):
         def __init__(self, examples: list[dict], model_name: str = "all-MiniLM-L6-v2", k: int = 3):
             """
             Initialize the retriever with examples and embedding model.
-            
-            Args:
-                examples: List of dicts with 'question' and 'cypher_query' keys
-                model_name: Name of sentence-transformers model to use
-                k: Number of examples to retrieve
             """
             self.examples = examples
             self.k = k
@@ -343,11 +276,6 @@ def _(FEW_SHOT_EXAMPLES,np):
             """
             Retrieve top-k most similar examples for the given question.
             
-            Args:
-                question: Input question to find similar examples for
-                
-            Returns:
-                List of top-k most similar example dicts
             """
             # Encode the input question
             question_embedding = self.model.encode(
@@ -373,12 +301,7 @@ def _(FEW_SHOT_EXAMPLES,np):
         def format_examples_for_prompt(self, examples: list[dict]) -> str:
             """
             Format retrieved examples as a string for the prompt.
-            
-            Args:
-                examples: List of example dicts
-                
-            Returns:
-                Formatted string of examples
+
             """
             formatted = "Here are some similar examples:\n\n"
             for i, ex in enumerate(examples, 1):
@@ -411,9 +334,6 @@ def _(
             """
             Initialize GraphRAG module.
             
-            Args:
-                use_few_shot: Whether to use dynamic few-shot examples
-                k_examples: Number of examples to retrieve if use_few_shot is True
             """
             self.prune = dspy.Predict(PruneSchema)
             self.text2cypher = dspy.ChainOfThought(Text2Cypher)
@@ -455,6 +375,191 @@ def _(
 
             return q.strip()
 
+        @staticmethod
+        def postprocess_cypher(query: str) -> str:
+            """
+            Rule-based post-processor for Cypher queries.
+            """
+            q = query.strip()
+            if not q:
+                return q
+
+            text_properties = {
+                "birthDate",
+                "deathDate",
+                "fullName",
+                "gender",
+                "knownName",
+                "name",
+                "category",
+                "motivation",
+                "scholar_type",
+                "state",
+                "portion",
+                "dateAwarded",
+                "prize_id",
+            }
+
+            property_preferences = {
+                "Scholar": ["knownName", "fullName"],
+                "Prize": ["category", "awardYear", "prize_id"],
+                "Institution": ["name"],
+                "City": ["name", "state"],
+                "Country": ["name"],
+                "Continent": ["name"],
+            }
+            fallback_priority = [
+                "knownName",
+                "name",
+                "category",
+                "fullName",
+                "gender",
+                "motivation",
+                "portion",
+                "scholar_type",
+            ]
+
+            property_pattern = "|".join(re.escape(p) for p in sorted(text_properties))
+            comparison_pattern = re.compile(
+                "(?is)"
+                "(toLower\\s*\\(\\s*)?"
+                "([A-Za-z_]\\w*\\.(" + property_pattern + "))"
+                "\\s*(\\))?"
+                "\\s*(=|<>|!=|CONTAINS|STARTS\\s+WITH|ENDS\\s+WITH)"
+                "\\s*('(?:[^'\\\\]|\\\\.)*'|\"(?:[^\\\"\\\\]|\\\\.)*\")"
+            )
+
+            def _normalize_comparison(match: re.Match[str]) -> str:
+                property_expr = match.group(2)
+                operator = " ".join(match.group(5).upper().split())
+                literal = match.group(6).strip()
+                normalized_prop = f"toLower({property_expr})"
+                normalized_literal = f"toLower({literal})"
+                return f"{normalized_prop} {operator} {normalized_literal}"
+
+            q = comparison_pattern.sub(_normalize_comparison, q)
+
+            var_labels: dict[str, str] = {}
+            for m in re.finditer(r"\(\s*([A-Za-z_]\w*)\s*:\s*([A-Za-z_][\w]*)", q):
+                var, label = m.groups()
+                var_labels.setdefault(var, label)
+
+            var_properties: dict[str, list[str]] = {}
+            for m in re.finditer(r"\b([A-Za-z_]\w*)\.(\w+)\b", q):
+                var, prop = m.groups()
+                props = var_properties.setdefault(var, [])
+                if prop not in props:
+                    props.append(prop)
+
+            return_match = re.search(r"(?i)\breturn\b", q)
+            if not return_match:
+                return q
+
+            prefix = q[: return_match.start()]
+            body_and_tail = q[return_match.end() :]
+
+            tail_start = len(body_and_tail)
+            for pattern in (r"\bORDER\s+BY\b", r"\bLIMIT\b", r"\bSKIP\b"):
+                match = re.search(pattern, body_and_tail, flags=re.IGNORECASE)
+                if match and match.start() < tail_start:
+                    tail_start = match.start()
+
+            return_body = body_and_tail[:tail_start].strip()
+            tail = body_and_tail[tail_start:]
+
+            distinct = False
+            if return_body.upper().startswith("DISTINCT "):
+                distinct = True
+                return_body = return_body[len("DISTINCT ") :].strip()
+
+            def _split_return_items(clause: str) -> list[str]:
+                items: list[str] = []
+                current: list[str] = []
+                depth = 0
+                in_single = False
+                in_double = False
+
+                for ch in clause:
+                    if ch == "'" and not in_double:
+                        in_single = not in_single
+                    elif ch == '"' and not in_single:
+                        in_double = not in_double
+
+                    if not in_single and not in_double:
+                        if ch == "(":
+                            depth += 1
+                        elif ch == ")" and depth > 0:
+                            depth -= 1
+
+                    if (
+                        ch == ","
+                        and depth == 0
+                        and not in_single
+                        and not in_double
+                    ):
+                        items.append("".join(current).strip())
+                        current = []
+                    else:
+                        current.append(ch)
+
+                remainder = "".join(current).strip()
+                if remainder:
+                    items.append(remainder)
+
+                return [item for item in items if item]
+
+            def _select_projection(var: str) -> str | None:
+                label = var_labels.get(var)
+                used_props = var_properties.get(var, [])
+
+                if label and label in property_preferences:
+                    for candidate in property_preferences[label]:
+                        if candidate in used_props:
+                            return candidate
+                    prefs = property_preferences[label]
+                    if prefs:
+                        return prefs[0]
+
+                if used_props:
+                    for preferred in fallback_priority:
+                        if preferred in used_props:
+                            return preferred
+                    return used_props[0]
+
+                return None
+
+            def _rewrite_item(item: str) -> str:
+                trimmed = item.strip()
+                if not trimmed:
+                    return trimmed
+
+                alias_match = re.match(
+                    r"(?is)(.+?)\s+AS\s+([A-Za-z_]\w*)$", trimmed
+                )
+                if alias_match:
+                    expr = alias_match.group(1).strip()
+                    alias = alias_match.group(2)
+                else:
+                    expr = trimmed
+                    alias = None
+
+                if re.fullmatch(r"[A-Za-z_]\w*", expr):
+                    projection = _select_projection(expr)
+                    if projection:
+                        alias_name = alias or expr
+                        return f"{expr}.{projection} AS {alias_name}"
+
+                return trimmed
+
+            items = _split_return_items(return_body)
+            rewritten_items = [_rewrite_item(item) for item in items]
+
+            new_return = ", ".join(rewritten_items)
+            if distinct:
+                new_return = f"DISTINCT {new_return}"
+
+            return f"{prefix}RETURN {new_return}{tail}"
+
         def get_cypher_query(
             self,
             question: str,
@@ -465,14 +570,6 @@ def _(
             """
             Generate Cypher query with optional dynamic few-shot examples.
             
-            Args:
-                question: Natural language question
-                input_schema: Graph schema string
-                previous_query: Previously generated query when repairing
-                error_message: Error text from EXPLAIN when repairing
-                
-            Returns:
-                Generated Cypher query string
             """
             # Prune schema
             prune_result = self.prune(question=question, input_schema=input_schema)
@@ -507,6 +604,7 @@ def _(
             cypher_query: str = text2cypher_result.query
             # clean markdown fences
             cypher_query = self._clean_cypher(cypher_query)
+            cypher_query = self.postprocess_cypher(cypher_query)
             return cypher_query
 
         def run_query(
@@ -609,15 +707,6 @@ def _(
     def run_graph_rag(questions: list[str], db_manager, use_few_shot: bool = True, k_examples: int = 3) -> list:
         """
         Run GraphRAG on a list of questions.
-        
-        Args:
-            questions: List of questions to answer
-            db_manager: Database manager instance
-            use_few_shot: Whether to use dynamic few-shot examples
-            k_examples: Number of examples to retrieve
-            
-        Returns:
-            List of response dicts
         """
         schema = str(db_manager.get_schema_dict)
         rag = GraphRAG(use_few_shot=use_few_shot, k_examples=k_examples)
@@ -641,6 +730,7 @@ def _():
 
 @app.cell
 def _():
+    import json
     import marimo as mo
     import os
     from textwrap import dedent
@@ -662,6 +752,7 @@ def _():
         BaseModel,
         Field,
         dspy,
+        json,
         kuzu,
         mo,
         np,

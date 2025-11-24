@@ -454,6 +454,26 @@ def _(conn, df):
     print(f"{num_city_country_rels_affiliations} city-country relationships ingested")
     return
 
+@app.cell
+def _(conn, df):
+    # Birth-based City -> Country relationships
+    res_birth_city_country = conn.execute(
+        """
+        LOAD FROM $df
+        WITH *
+        WHERE birthPlaceCity IS NOT NULL AND birthPlaceCountryNow IS NOT NULL
+        MATCH (ci:City {name: birthPlaceCity})
+        MATCH (co:Country {name: birthPlaceCountryNow})
+        MERGE (ci)-[r:IS_CITY_IN]->(co)
+        RETURN count(DISTINCT r) AS num_birth_city_country_rels
+        """,
+        parameters={"df": df},
+    )
+    num_birth_city_country_rels = res_birth_city_country.get_as_pl()["num_birth_city_country_rels"][0]
+    print(f"{num_birth_city_country_rels} birth-based city-country relationships ingested")
+    return
+
+
 
 @app.cell
 def _(conn, df):
@@ -474,6 +494,26 @@ def _(conn, df):
     print(f"{num_country_affiliation_rels} country-continent-affiliation relationships ingested")
 
     return
+
+@app.cell
+def _(conn, df):
+    # Birth-based Country -> Continent relationships
+    res_birth_country_continent = conn.execute(
+        """
+        LOAD FROM $df
+        WITH *
+        WHERE birthPlaceCountryNow IS NOT NULL AND birthPlaceContinent IS NOT NULL
+        MATCH (co:Country {name: birthPlaceCountryNow})
+        MATCH (con:Continent {name: birthPlaceContinent})
+        MERGE (co)-[rc:IS_COUNTRY_IN]->(con)
+        RETURN count(DISTINCT rc) AS num_birth_country_continent_rels
+        """,
+        parameters={"df": df},
+    )
+    num_birth_country_continent_rels = res_birth_country_continent.get_as_pl()["num_birth_country_continent_rels"][0]
+    print(f"{num_birth_country_continent_rels} birth-based country-continent relationships ingested")
+    return
+
 
 
 @app.cell
