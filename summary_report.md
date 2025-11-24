@@ -1,50 +1,15 @@
 # GraphRAG Few-shot Test Summary
 
-- Total examples: 51
-- EXPLAIN success: 33 (first-pass: 33, refinements: 0)
-- EXPLAIN failures after retries: 18
-- Execution failures: 18
-- Post-processor fully passing: 48
+- Total examples: 54
+- EXPLAIN success: 53 (first-pass: 50, refinements: 3)
+- EXPLAIN failures after retries: 1
+- Execution failures: 2
+- Post-processor fully passing: 43
 
 ## Problematic Examples
 
 ### EXPLAIN failures
-- Which scholars have won more than one Nobel Prize? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 139)
-"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(p) AS numPr...
-- For each prize category, how many distinct laureates are there? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 142)
-"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WITH p.category AS catego...
-- Which cities have produced at least five laureates by birth? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 148)
-"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(s) AS ...
-- Which laureates died in the same city where they were born? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 218)
-"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DI...
-- Which institutions have hosted laureates from more than one prize category? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 244)
-"EXPLAIN MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED...
-- For each continent, how many Physics laureates were born there? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 284)
-"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Co...
-- Which laureates have been affiliated with more than one institution? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 185)
-"EXPLAIN MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s,...
-- What is the average adjusted prize amount per category for prizes awarded from 1980 onwards? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 155)
-"EXPLAIN MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH p.category AS ...
-- Which Medicine prizes were shared by more than one laureate? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 239)
-"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category)...
-- Which female laureates won Nobel prizes in Physics after 1960? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 240)
-"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category)...
-- List institutions in Japan that have Chemistry laureates. — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 267)
-"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WI...
-- Which laureates were born in the same city where they later worked? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 240)
-"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILI...
-- For each continent, how many distinct laureates have affiliated institutions there? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 244)
-"EXPLAIN MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LO...
-- Which Physics laureates were born in Europe and received their prize before 1950? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 335)
-"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Co...
-- Which laureates won a prize before the age of 40? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 189)
-"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear - s.bir...
-- For each continent, how many laureates have died there? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 202)
-"EXPLAIN MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Co...
-- Which scholars have affiliations in at least three different countries? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 233)
-"EXPLAIN MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LO...
-- For each birth continent, how many laureates later worked at institutions on a different continent? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 418)
-"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bC...
+- Which laureates won a prize before the age of 40? — Catalog exception: function TOINTEGER does not exist.
 
 ### Post-processor issues (lowercase)
 
@@ -52,50 +17,24 @@
 
 ### Post-processor issues (RETURN projection)
 
+- Which scholars have won more than one Nobel Prize?
 - For each prize category, how many distinct laureates are there?
+- Which cities have produced at least five laureates by birth?
+- For each continent, how many Physics laureates were born there?
+- Which laureates have been affiliated with more than one institution?
 - What is the average adjusted prize amount per category for prizes awarded from 1980 onwards?
-- Which Chemistry laureates have been affiliated with at least two different institutions?
+- For each continent, how many distinct laureates have affiliated institutions there?
+- For each continent, how many laureates have died there?
+- Which scholars have affiliations in at least three different countries?
+- For each birth continent, how many laureates later worked at institutions on a different continent?
+- What is the average height of physics laureates?
 
 ### Execution failures
 
-- Which scholars have won more than one Nobel Prize? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 131)
-"MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(p) AS numPrizes WHE...
-- For each prize category, how many distinct laureates are there? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 134)
-"MATCH (s:Scholar)-[:WON]->(p:Prize) WITH p.category AS category, COUN...
-- Which cities have produced at least five laureates by birth? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 140)
-"MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(s) AS numLaure...
-- Which laureates died in the same city where they were born? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 210)
-"MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DIED_IN]->...
-- Which institutions have hosted laureates from more than one prize category? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 236)
-"MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->...
-- For each continent, how many Physics laureates were born there? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 276)
-"MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[...
-- Which laureates have been affiliated with more than one institution? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 177)
-"MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(D...
-- What is the average adjusted prize amount per category for prizes awarded from 1980 onwards? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 147)
-"MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH p.category AS category...
-- Which Medicine prizes were shared by more than one laureate? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 231)
-"MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAIN...
-- Which female laureates won Nobel prizes in Physics after 1960? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 232)
-"MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAIN...
-- List institutions in Japan that have Chemistry laureates. — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 259)
-"MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:...
-- Which laureates were born in the same city where they later worked? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 232)
-"MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WIT...
-- For each continent, how many distinct laureates have affiliated institutions there? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 236)
-"MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN...
-- Which Physics laureates were born in Europe and received their prize before 1950? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 327)
-"MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[...
-- Which laureates won a prize before the age of 40? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 181)
-"MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear - s.birthDate <...
-- For each continent, how many laureates have died there? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 194)
-"MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[...
-- Which scholars have affiliations in at least three different countries? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 225)
-"MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN...
-- For each birth continent, how many laureates later worked at institutions on a different continent? — Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 410)
-"MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:C...
+- How many laureates in Chemistry were born before 1900? — Conversion exception: Cast failed. Could not convert "1926-08-11" to INT64.
+- Which laureates won a prize before the age of 40? — Catalog exception: function TOINTEGER does not exist.
 
 ## Strengths
 
-- Single-attempt successes: 33
-- Successful repairs after EXPLAIN feedback: 0
+- Single-attempt successes: 50
+- Successful repairs after EXPLAIN feedback: 3

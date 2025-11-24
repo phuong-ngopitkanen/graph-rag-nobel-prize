@@ -128,6 +128,7 @@ def _(dspy):
         - No explanations, comments, or natural language.
         - No code fences.
         - Output exactly ONE valid Cypher statement.
+        - **Do NOT use ORDER BY, LIMIT, or SKIP under any circumstances.**
         """
 
         question: str = dspy.InputField()
@@ -155,7 +156,7 @@ def _(dspy):
     GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
     lm = dspy.LM(
-        "gemini/gemini-2.0-flash",   
+        "gemini/gemini-2.5-flash-lite",   
         api_key=GEMINI_API_KEY,
         temperature=0.0,
         max_tokens=1024,           
@@ -634,7 +635,10 @@ def _(
                 except Exception as e:
                     previous_query = candidate_query
                     error_message = str(e)
-                    print("EXPLAIN error:", error_message)
+                    print("\n=== SELF-REFINEMENT TRIGGERED ===")
+                    print("Previous query:", previous_query)
+                    print("Error message:", error_message)
+                    print("Entering repair mode...\n")
                     continue
 
                 final_query = candidate_query
@@ -733,6 +737,7 @@ def _():
     import json
     import marimo as mo
     import os
+    import re
     from textwrap import dedent
     from typing import Any
 
@@ -757,6 +762,7 @@ def _():
         mo,
         np,
         os,
+        re,
     )
 
 

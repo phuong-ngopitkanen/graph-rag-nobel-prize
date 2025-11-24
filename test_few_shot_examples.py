@@ -92,6 +92,7 @@ def _load_graph_rag_components() -> Dict[str, Any]:
             mo_mod,
             np_mod,
             os_mod,
+            _re_mod,
         ) = result
         env.update(
             {

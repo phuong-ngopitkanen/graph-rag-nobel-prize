@@ -1,165 +1,41 @@
 {
   "stats": {
-    "total": 51,
-    "explain_success": 33,
-    "first_pass_success": 33,
-    "refinement_needed": 0,
-    "explain_failures": 18,
-    "execution_failures": 18,
-    "postprocessor_pass": 48
+    "total": 54,
+    "explain_success": 53,
+    "first_pass_success": 50,
+    "refinement_needed": 3,
+    "explain_failures": 1,
+    "execution_failures": 2,
+    "postprocessor_pass": 43
   },
   "failing_explain": [
     {
-      "question": "Which scholars have won more than one Nobel Prize?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 139)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(p) AS numPr..."
-    },
-    {
-      "question": "For each prize category, how many distinct laureates are there?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 142)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WITH p.category AS catego..."
-    },
-    {
-      "question": "Which cities have produced at least five laureates by birth?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 148)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(s) AS ..."
-    },
-    {
-      "question": "Which laureates died in the same city where they were born?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 218)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DI..."
-    },
-    {
-      "question": "Which institutions have hosted laureates from more than one prize category?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 244)\n\"EXPLAIN MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED..."
-    },
-    {
-      "question": "For each continent, how many Physics laureates were born there?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 284)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Co..."
-    },
-    {
-      "question": "Which laureates have been affiliated with more than one institution?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 185)\n\"EXPLAIN MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s,..."
-    },
-    {
-      "question": "What is the average adjusted prize amount per category for prizes awarded from 1980 onwards?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 155)\n\"EXPLAIN MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH p.category AS ..."
-    },
-    {
-      "question": "Which Medicine prizes were shared by more than one laureate?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 239)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category)..."
-    },
-    {
-      "question": "Which female laureates won Nobel prizes in Physics after 1960?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 240)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category)..."
-    },
-    {
-      "question": "List institutions in Japan that have Chemistry laureates.",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 267)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WI..."
-    },
-    {
-      "question": "Which laureates were born in the same city where they later worked?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 240)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILI..."
-    },
-    {
-      "question": "For each continent, how many distinct laureates have affiliated institutions there?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 244)\n\"EXPLAIN MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LO..."
-    },
-    {
-      "question": "Which Physics laureates were born in Europe and received their prize before 1950?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 335)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Co..."
-    },
-    {
       "question": "Which laureates won a prize before the age of 40?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 189)\n\"EXPLAIN MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear - s.bir..."
-    },
-    {
-      "question": "For each continent, how many laureates have died there?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 202)\n\"EXPLAIN MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Co..."
-    },
-    {
-      "question": "Which scholars have affiliations in at least three different countries?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 233)\n\"EXPLAIN MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LO..."
-    },
-    {
-      "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 418)\n\"EXPLAIN MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bC..."
+      "error": "Catalog exception: function TOINTEGER does not exist."
     }
   ],
   "postprocessor_lowercase_issues": [],
   "postprocessor_return_issues": [
+    "Which scholars have won more than one Nobel Prize?",
     "For each prize category, how many distinct laureates are there?",
+    "Which cities have produced at least five laureates by birth?",
+    "For each continent, how many Physics laureates were born there?",
+    "Which laureates have been affiliated with more than one institution?",
     "What is the average adjusted prize amount per category for prizes awarded from 1980 onwards?",
-    "Which Chemistry laureates have been affiliated with at least two different institutions?"
+    "For each continent, how many distinct laureates have affiliated institutions there?",
+    "For each continent, how many laureates have died there?",
+    "Which scholars have affiliations in at least three different countries?",
+    "For each birth continent, how many laureates later worked at institutions on a different continent?",
+    "What is the average height of physics laureates?"
   ],
   "execution_failures": [
     {
-      "question": "Which scholars have won more than one Nobel Prize?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 131)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, COUNT(p) AS numPrizes WHE..."
-    },
-    {
-      "question": "For each prize category, how many distinct laureates are there?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 134)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) WITH p.category AS category, COUN..."
-    },
-    {
-      "question": "Which cities have produced at least five laureates by birth?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 140)\n\"MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WITH ci, COUNT(s) AS numLaure..."
-    },
-    {
-      "question": "Which laureates died in the same city where they were born?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 210)\n\"MATCH (s:Scholar)-[:BORN_IN]->(birthCity:City) MATCH (s)-[:DIED_IN]->..."
-    },
-    {
-      "question": "Which institutions have hosted laureates from more than one prize category?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 236)\n\"MATCH (s1:Scholar)-[:WON]->(p1:Prize) MATCH (s1)-[:AFFILIATED_WITH]->..."
-    },
-    {
-      "question": "For each continent, how many Physics laureates were born there?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 276)\n\"MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[..."
-    },
-    {
-      "question": "Which laureates have been affiliated with more than one institution?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 177)\n\"MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WITH s, COUNT(D..."
-    },
-    {
-      "question": "What is the average adjusted prize amount per category for prizes awarded from 1980 onwards?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 147)\n\"MATCH (p:Prize) WHERE p.awardYear >= 1980 WITH p.category AS category..."
-    },
-    {
-      "question": "Which Medicine prizes were shared by more than one laureate?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 231)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAIN..."
-    },
-    {
-      "question": "Which female laureates won Nobel prizes in Physics after 1960?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 232)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAIN..."
-    },
-    {
-      "question": "List institutions in Japan that have Chemistry laureates.",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 259)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:..."
-    },
-    {
-      "question": "Which laureates were born in the same city where they later worked?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 232)\n\"MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WIT..."
-    },
-    {
-      "question": "For each continent, how many distinct laureates have affiliated institutions there?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 236)\n\"MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN..."
-    },
-    {
-      "question": "Which Physics laureates were born in Europe and received their prize before 1950?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 327)\n\"MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[..."
+      "question": "How many laureates in Chemistry were born before 1900?",
+      "error": "Conversion exception: Cast failed. Could not convert \"1926-08-11\" to INT64."
     },
     {
       "question": "Which laureates won a prize before the age of 40?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 181)\n\"MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear - s.birthDate <..."
-    },
-    {
-      "question": "For each continent, how many laureates have died there?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 194)\n\"MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[..."
-    },
-    {
-      "question": "Which scholars have affiliations in at least three different countries?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 225)\n\"MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN..."
-    },
-    {
-      "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
-      "error": "Parser exception: Invalid input < BY>: expected rule ku_Statements (line: 1, offset: 410)\n\"MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:C..."
+      "error": "Catalog exception: function TOINTEGER does not exist."
     }
   ],
   "single_attempt_success": [
@@ -172,21 +48,35 @@
     "Which scholars were born in the United States but affiliated with the University of Cambridge?",
     "List all institutions located in cities in France.",
     "How many laureates were born in Europe?",
+    "Which scholars have won more than one Nobel Prize?",
+    "For each prize category, how many distinct laureates are there?",
+    "Which cities have produced at least five laureates by birth?",
+    "Which laureates died in the same city where they were born?",
     "How many Physics prizes were awarded from 2000 onwards?",
     "How many laureates have been affiliated with institutions in the United States?",
     "Which continents have Chemistry laureates by birth?",
     "List all female laureates who won prizes in Chemistry.",
     "What is the total prize amount awarded in Physics?",
+    "Which institutions have hosted laureates from more than one prize category?",
     "Which cities host institutions for both Physics and Chemistry laureates?",
+    "For each continent, how many Physics laureates were born there?",
     "How many laureates died in the United States?",
     "Which Physics laureates were affiliated with institutions located in Japan?",
     "Which Chemistry prizes had a prize amount greater than 7,000,000?",
     "Which Economics laureates were affiliated with Harvard University?",
+    "Which laureates have been affiliated with more than one institution?",
+    "What is the average adjusted prize amount per category for prizes awarded from 1980 onwards?",
     "Which Chemistry laureates have been affiliated with at least two different institutions?",
+    "Which Medicine prizes were shared by more than one laureate?",
+    "Which female laureates won Nobel prizes in Physics after 1960?",
     "How many Nobel prizes in Economics were awarded between 1990 and 1999?",
+    "List institutions in Japan that have Chemistry laureates.",
+    "Which laureates were born in the same city where they later worked?",
+    "For each continent, how many distinct laureates have affiliated institutions there?",
     "Which countries have produced laureates in both Physics and Chemistry by birth?",
     "Which cities have institutions affiliated with Medicine laureates?",
     "How many different portion values exist for Physics prizes?",
+    "Which Physics laureates were born in Europe and received their prize before 1950?",
     "How many female laureates have won prizes in Medicine?",
     "Which Economics laureates were born in a different country than the country of their affiliated institution?",
     "Which Physics laureates were born in cities located in Asia?",
@@ -195,7 +85,14 @@
     "Which institutions have hosted laureates whose birth and death both occurred in Europe?",
     "Which laureates were affiliated with institutions on a different continent than their birth continent?",
     "Which countries have produced laureates who won prizes in both Medicine and Physics?",
-    "Which laureates were born in cities that host institutions they were also affiliated with?"
+    "For each continent, how many laureates have died there?",
+    "Which laureates were born in cities that host institutions they were also affiliated with?",
+    "Which scholars have affiliations in at least three different countries?",
+    "For each birth continent, how many laureates later worked at institutions on a different continent?"
   ],
-  "repaired_success": []
+  "repaired_success": [
+    "What is the average height of physics laureates?",
+    "Which laureates have an h-index greater than 50?",
+    "List scholars whose fieldOfStudy contains 'quantum mechanics'."
+  ]
 }
