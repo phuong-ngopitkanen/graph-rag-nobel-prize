@@ -1,0 +1,403 @@
+{
+  "total_queries": 19,
+  "queries": [
+    {
+      "query_no": 1,
+      "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+      "cache_hit": false,
+      "total_time": 2.437354326248169,
+      "timestamp": "2025-11-25T23:44:26.005280",
+      "stages": {
+        "cache_lookup": 2.8133392333984375e-05,
+        "schema_pruning": 0.03495645523071289,
+        "few_shot_retrieval": 0.021679162979125977,
+        "text2cypher_generation": 0.047235965728759766,
+        "post_processing": 0.0013170242309570312,
+        "cache_store": 1.8358230590820312e-05,
+        "text2cypher_attempt_1": 0.1053316593170166,
+        "query_validation": 0.023850202560424805,
+        "query_execution": 0.01700901985168457,
+        "query_phase": 0.14624834060668945,
+        "answer_generation": 2.291064977645874
+      }
+    },
+    {
+      "query_no": 2,
+      "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+      "cache_hit": false,
+      "total_time": 14.955174922943115,
+      "timestamp": "2025-11-25T23:46:06.103009",
+      "stages": {
+        "cache_lookup": 2.6941299438476562e-05,
+        "schema_pruning": 10.62480616569519,
+        "few_shot_retrieval": 0.01742243766784668,
+        "text2cypher_generation": 2.6157472133636475,
+        "post_processing": 0.00020265579223632812,
+        "cache_store": 6.175041198730469e-05,
+        "text2cypher_attempt_1": 13.258436441421509,
+        "query_validation": 0.004904747009277344,
+        "query_execution": 0.01372385025024414,
+        "query_phase": 13.277135848999023,
+        "answer_generation": 1.6779744625091553,
+        "total_pipeline": 2.4410715103149414
+      }
+    },
+    {
+      "query_no": 3,
+      "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?\u00a8",
+      "cache_hit": false,
+      "total_time": 10.27319622039795,
+      "timestamp": "2025-11-25T23:46:16.468353",
+      "stages": {
+        "cache_lookup": 2.6702880859375e-05,
+        "schema_pruning": 1.8342843055725098,
+        "few_shot_retrieval": 0.020459651947021484,
+        "text2cypher_generation": 6.76500940322876,
+        "post_processing": 0.00012040138244628906,
+        "cache_store": 2.765655517578125e-05,
+        "text2cypher_attempt_1": 8.619990825653076,
+        "query_validation": 0.0038149356842041016,
+        "query_execution": 0.00879669189453125,
+        "query_phase": 8.632650375366211,
+        "answer_generation": 1.6405153274536133,
+        "total_pipeline": 14.960084199905396
+      }
+    },
+    {
+      "query_no": 4,
+      "question": "How many laureates were born in Germany?",
+      "cache_hit": false,
+      "total_time": 0.14728355407714844,
+      "timestamp": "2025-11-25T23:46:59.773629",
+      "stages": {
+        "cache_lookup": 2.8848648071289062e-05,
+        "schema_pruning": 0.020522117614746094,
+        "few_shot_retrieval": 0.021481752395629883,
+        "text2cypher_generation": 0.05209708213806152,
+        "post_processing": 0.0001246929168701172,
+        "cache_store": 2.2649765014648438e-05,
+        "text2cypher_attempt_1": 0.0943748950958252,
+        "query_validation": 0.01040196418762207,
+        "query_execution": 0.007445096969604492,
+        "query_phase": 0.11226582527160645,
+        "answer_generation": 0.03497910499572754,
+        "total_pipeline": 10.277340173721313
+      }
+    },
+    {
+      "query_no": 5,
+      "question": "Which institutions have affiliated Chemistry laureates?",
+      "cache_hit": false,
+      "total_time": 20.718994617462158,
+      "timestamp": "2025-11-25T23:47:43.458923",
+      "stages": {
+        "cache_lookup": 2.9325485229492188e-05,
+        "schema_pruning": 10.347582340240479,
+        "few_shot_retrieval": 0.017048120498657227,
+        "text2cypher_generation": 2.019251823425293,
+        "post_processing": 0.00011706352233886719,
+        "cache_store": 2.09808349609375e-05,
+        "text2cypher_attempt_1": 12.384114503860474,
+        "query_validation": 0.003774881362915039,
+        "query_execution": 0.01373744010925293,
+        "query_phase": 12.401691913604736,
+        "answer_generation": 8.317255020141602,
+        "total_pipeline": 0.15105104446411133
+      }
+    },
+    {
+      "query_no": 6,
+      "question": "How many laureates were born in Germany?",
+      "cache_hit": true,
+      "total_time": 0.039815425872802734,
+      "timestamp": "2025-11-25T23:47:55.902324",
+      "stages": {
+        "cache_lookup": 0.0003724098205566406,
+        "schema_pruning": 10.347582340240479,
+        "few_shot_retrieval": 0.017048120498657227,
+        "text2cypher_generation": 2.019251823425293,
+        "post_processing": 0.00011706352233886719,
+        "cache_store": 2.09808349609375e-05,
+        "text2cypher_attempt_1": 0.0003833770751953125,
+        "query_validation": 0.00410008430480957,
+        "query_execution": 0.006791591644287109,
+        "query_phase": 0.011358022689819336,
+        "answer_generation": 0.028418540954589844,
+        "total_pipeline": 20.724030017852783
+      }
+    },
+    {
+      "query_no": 7,
+      "question": "Which institutions have affiliated Physics laureates?",
+      "cache_hit": false,
+      "total_time": 10.419861793518066,
+      "timestamp": "2025-11-25T23:48:22.132372",
+      "stages": {
+        "cache_lookup": 2.5510787963867188e-05,
+        "schema_pruning": 6.349205732345581,
+        "few_shot_retrieval": 0.01570296287536621,
+        "text2cypher_generation": 0.047095537185668945,
+        "post_processing": 0.00011944770812988281,
+        "cache_store": 2.6226043701171875e-05,
+        "text2cypher_attempt_1": 6.412257432937622,
+        "query_validation": 0.0038738250732421875,
+        "query_execution": 0.00686955451965332,
+        "query_phase": 6.423072814941406,
+        "answer_generation": 3.9967565536499023,
+        "total_pipeline": 0.04417753219604492
+      }
+    },
+    {
+      "query_no": 8,
+      "question": "Which scholars won prizes in Physics and were affiliated with the University of Cambridge?",
+      "cache_hit": false,
+      "total_time": 8.69132924079895,
+      "timestamp": "2025-11-25T23:48:53.320136",
+      "stages": {
+        "cache_lookup": 3.1948089599609375e-05,
+        "schema_pruning": 6.438753128051758,
+        "few_shot_retrieval": 0.022163867950439453,
+        "text2cypher_generation": 0.05586600303649902,
+        "post_processing": 0.00017380714416503906,
+        "cache_store": 2.2649765014648438e-05,
+        "text2cypher_attempt_1": 6.517091512680054,
+        "query_validation": 0.003609180450439453,
+        "query_execution": 0.01408696174621582,
+        "query_phase": 6.534863471984863,
+        "answer_generation": 2.1564114093780518,
+        "total_pipeline": 10.423055648803711
+      }
+    },
+    {
+      "query_no": 9,
+      "question": "Which institutions have affiliated Physics laureates?",
+      "cache_hit": true,
+      "total_time": 2.8687562942504883,
+      "timestamp": "2025-11-25T23:49:50.547646",
+      "stages": {
+        "cache_lookup": 0.0002181529998779297,
+        "schema_pruning": 6.438753128051758,
+        "few_shot_retrieval": 0.022163867950439453,
+        "text2cypher_generation": 0.05586600303649902,
+        "post_processing": 0.00017380714416503906,
+        "cache_store": 2.2649765014648438e-05,
+        "text2cypher_attempt_1": 0.0002391338348388672,
+        "query_validation": 0.003931999206542969,
+        "query_execution": 0.006728649139404297,
+        "query_phase": 0.010980367660522461,
+        "answer_generation": 2.8577377796173096,
+        "total_pipeline": 8.696560621261597
+      }
+    },
+    {
+      "query_no": 10,
+      "question": "Which scholars won prizes in Physics and were affiliated with the University of Cambridge?",
+      "cache_hit": true,
+      "total_time": 2.0998542308807373,
+      "timestamp": "2025-11-25T23:50:13.341115",
+      "stages": {
+        "cache_lookup": 0.00023245811462402344,
+        "schema_pruning": 6.438753128051758,
+        "few_shot_retrieval": 0.022163867950439453,
+        "text2cypher_generation": 0.05586600303649902,
+        "post_processing": 0.00017380714416503906,
+        "cache_store": 2.2649765014648438e-05,
+        "text2cypher_attempt_1": 0.0002551078796386719,
+        "query_validation": 0.004497528076171875,
+        "query_execution": 0.008020639419555664,
+        "query_phase": 0.012865543365478516,
+        "answer_generation": 2.0869476795196533,
+        "total_pipeline": 2.873678684234619
+      }
+    },
+    {
+      "query_no": 11,
+      "question": "What is the total prize amount awarded in Physics?",
+      "cache_hit": false,
+      "total_time": 5.153566122055054,
+      "timestamp": "2025-11-25T23:50:35.936538",
+      "stages": {
+        "cache_lookup": 4.172325134277344e-05,
+        "schema_pruning": 1.4693400859832764,
+        "few_shot_retrieval": 0.015124082565307617,
+        "text2cypher_generation": 2.1391971111297607,
+        "post_processing": 9.5367431640625e-05,
+        "cache_store": 2.09808349609375e-05,
+        "text2cypher_attempt_1": 3.62388277053833,
+        "query_validation": 0.0015900135040283203,
+        "query_execution": 0.008947372436523438,
+        "query_phase": 3.6344828605651855,
+        "answer_generation": 1.5190396308898926,
+        "total_pipeline": 2.104109287261963
+      }
+    },
+    {
+      "query_no": 12,
+      "question": "Which scholars won prizes in Physics and were affiliated with the University of Cambridge?",
+      "cache_hit": true,
+      "total_time": 2.1189024448394775,
+      "timestamp": "2025-11-25T23:51:00.350672",
+      "stages": {
+        "cache_lookup": 0.00022602081298828125,
+        "schema_pruning": 1.4693400859832764,
+        "few_shot_retrieval": 0.015124082565307617,
+        "text2cypher_generation": 2.1391971111297607,
+        "post_processing": 9.5367431640625e-05,
+        "cache_store": 2.09808349609375e-05,
+        "text2cypher_attempt_1": 0.0002453327178955078,
+        "query_validation": 0.0033605098724365234,
+        "query_execution": 0.0069751739501953125,
+        "query_phase": 0.010660171508789062,
+        "answer_generation": 2.1082093715667725,
+        "total_pipeline": 5.158123016357422
+      }
+    },
+    {
+      "query_no": 13,
+      "question": "Which institutions have affiliated Physics laureates?",
+      "cache_hit": true,
+      "total_time": 4.504209518432617,
+      "timestamp": "2025-11-25T23:51:34.874241",
+      "stages": {
+        "cache_lookup": 0.0003533363342285156,
+        "schema_pruning": 1.4693400859832764,
+        "few_shot_retrieval": 0.015124082565307617,
+        "text2cypher_generation": 2.1391971111297607,
+        "post_processing": 9.5367431640625e-05,
+        "cache_store": 2.09808349609375e-05,
+        "text2cypher_attempt_1": 0.00036716461181640625,
+        "query_validation": 0.0036284923553466797,
+        "query_execution": 0.007102251052856445,
+        "query_phase": 0.011191129684448242,
+        "answer_generation": 4.492971181869507,
+        "total_pipeline": 2.1234965324401855
+      }
+    },
+    {
+      "query_no": 14,
+      "question": "Which institutions have affiliated Chemistry laureates?",
+      "cache_hit": true,
+      "total_time": 4.521769046783447,
+      "timestamp": "2025-11-25T23:51:52.706394",
+      "stages": {
+        "cache_lookup": 0.00020194053649902344,
+        "schema_pruning": 1.4693400859832764,
+        "few_shot_retrieval": 0.015124082565307617,
+        "text2cypher_generation": 2.1391971111297607,
+        "post_processing": 9.5367431640625e-05,
+        "cache_store": 2.09808349609375e-05,
+        "text2cypher_attempt_1": 0.00021719932556152344,
+        "query_validation": 0.003327608108520508,
+        "query_execution": 0.006495952606201172,
+        "query_phase": 0.010143518447875977,
+        "answer_generation": 4.511595964431763,
+        "total_pipeline": 4.508481502532959
+      }
+    },
+    {
+      "query_no": 15,
+      "question": "How many laureates were born in Germany?",
+      "cache_hit": true,
+      "total_time": 0.04384946823120117,
+      "timestamp": "2025-11-25T23:52:12.023131",
+      "stages": {
+        "cache_lookup": 0.00032329559326171875,
+        "schema_pruning": 1.4693400859832764,
+        "few_shot_retrieval": 0.015124082565307617,
+        "text2cypher_generation": 2.1391971111297607,
+        "post_processing": 9.5367431640625e-05,
+        "cache_store": 2.09808349609375e-05,
+        "text2cypher_attempt_1": 0.00033783912658691406,
+        "query_validation": 0.005326032638549805,
+        "query_execution": 0.00738978385925293,
+        "query_phase": 0.013122797012329102,
+        "answer_generation": 0.030698776245117188,
+        "total_pipeline": 4.525989532470703
+      }
+    },
+    {
+      "query_no": 16,
+      "question": "Which institutions have affiliated Physics laureates?",
+      "cache_hit": true,
+      "total_time": 2.227024793624878,
+      "timestamp": "2025-11-25T23:52:30.300281",
+      "stages": {
+        "cache_lookup": 0.0001633167266845703,
+        "schema_pruning": 1.4693400859832764,
+        "few_shot_retrieval": 0.015124082565307617,
+        "text2cypher_generation": 2.1391971111297607,
+        "post_processing": 9.5367431640625e-05,
+        "cache_store": 2.09808349609375e-05,
+        "text2cypher_attempt_1": 0.00017452239990234375,
+        "query_validation": 0.002549409866333008,
+        "query_execution": 0.007985591888427734,
+        "query_phase": 0.010796070098876953,
+        "answer_generation": 2.216191053390503,
+        "total_pipeline": 0.04845166206359863
+      }
+    },
+    {
+      "query_no": 17,
+      "question": "How many laureates were born in Europe?",
+      "cache_hit": false,
+      "total_time": 14.612197637557983,
+      "timestamp": "2025-11-25T23:53:02.260025",
+      "stages": {
+        "cache_lookup": 2.3365020751953125e-05,
+        "schema_pruning": 10.454395294189453,
+        "few_shot_retrieval": 0.014690160751342773,
+        "text2cypher_generation": 2.4153201580047607,
+        "post_processing": 0.00011277198791503906,
+        "cache_store": 2.7894973754882812e-05,
+        "text2cypher_attempt_1": 12.884669303894043,
+        "query_validation": 0.005747556686401367,
+        "query_execution": 0.014117002487182617,
+        "query_phase": 12.904597520828247,
+        "answer_generation": 1.707568883895874,
+        "total_pipeline": 2.23302960395813
+      }
+    },
+    {
+      "query_no": 18,
+      "question": "How many laureates were born in Germany?",
+      "cache_hit": true,
+      "total_time": 0.041085243225097656,
+      "timestamp": "2025-11-25T23:53:26.272839",
+      "stages": {
+        "cache_lookup": 0.00020647048950195312,
+        "schema_pruning": 10.454395294189453,
+        "few_shot_retrieval": 0.014690160751342773,
+        "text2cypher_generation": 2.4153201580047607,
+        "post_processing": 0.00011277198791503906,
+        "cache_store": 2.7894973754882812e-05,
+        "text2cypher_attempt_1": 0.0002243518829345703,
+        "query_validation": 0.005426645278930664,
+        "query_execution": 0.008009910583496094,
+        "query_phase": 0.013790607452392578,
+        "answer_generation": 0.027254819869995117,
+        "total_pipeline": 14.616811037063599
+      }
+    },
+    {
+      "query_no": 19,
+      "question": "Which scholars won prizes in Physics and were affiliated with the University of Cambridge?",
+      "cache_hit": true,
+      "total_time": 2.2031209468841553,
+      "timestamp": "2025-11-25T23:53:41.968861",
+      "stages": {
+        "cache_lookup": 0.00015401840209960938,
+        "schema_pruning": 10.454395294189453,
+        "few_shot_retrieval": 0.014690160751342773,
+        "text2cypher_generation": 2.4153201580047607,
+        "post_processing": 0.00011277198791503906,
+        "cache_store": 2.7894973754882812e-05,
+        "text2cypher_attempt_1": 0.0001647472381591797,
+        "query_validation": 0.003107309341430664,
+        "query_execution": 0.0073015689849853516,
+        "query_phase": 0.010660648345947266,
+        "answer_generation": 2.192418098449707,
+        "total_pipeline": 0.046318769454956055
+      }
+    }
+  ]
+}

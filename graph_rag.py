@@ -2,6 +2,8 @@ import marimo
 import os
 import json
 import re
+import time
+from performance_data import PerformanceDataExporter
 
 __generated_with = "0.14.17"
 app = marimo.App(width="medium")
@@ -32,17 +34,28 @@ def _(text_ui):
     text_ui
     return
 
-
 @app.cell
-def _(KuzuDatabaseManager, mo, run_graph_rag, text_ui):
+def _(KuzuDatabaseManager,  GraphRAG):
+
     db_name = "nobel.kuzu"
     db_manager = KuzuDatabaseManager(db_name)
+    rag_instance = GraphRAG(use_few_shot=True, k_examples=3, cache_size=3)
 
+    return (db_manager, rag_instance)
+
+
+@app.cell
+def _(db_manager, rag_instance, mo, text_ui):
     question = text_ui.value
-
+    schema = str(db_manager.get_schema_dict)
+    
     with mo.status.spinner(title="Generating answer...") as _spinner:
-        result = run_graph_rag([question], db_manager)[0]
-
+        result = rag_instance(
+            db_manager=db_manager,
+            question=question,
+            input_schema=schema
+        )
+    
     # Be defensive in case result is empty or missing keys
     if not result or "query" not in result or "answer" not in result:
         query = ""
@@ -50,7 +63,7 @@ def _(KuzuDatabaseManager, mo, run_graph_rag, text_ui):
     else:
         query = result["query"]
         answer = result["answer"].response
-
+    
     return answer, query
 
 
@@ -255,12 +268,7 @@ def _(FEW_SHOT_EXAMPLES,np):
     from sentence_transformers import SentenceTransformer
     
     class FewShotRetriever:
-        """Retrieves most similar few-shot examples based on semantic similarity"""
-        
         def __init__(self, examples: list[dict], model_name: str = "all-MiniLM-L6-v2", k: int = 3):
-            """
-            Initialize the retriever with examples and embedding model.
-            """
             self.examples = examples
             self.k = k
             self.model = SentenceTransformer(model_name)
@@ -274,18 +282,12 @@ def _(FEW_SHOT_EXAMPLES,np):
             )
         
         def retrieve(self, question: str) -> list[dict]:
-            """
-            Retrieve top-k most similar examples for the given question.
-            
-            """
-            # Encode the input question
             question_embedding = self.model.encode(
                 [question], 
                 convert_to_tensor=False,
                 show_progress_bar=False
             )[0]
             
-            # Compute cosine similarity with all examples
             similarities = []
             for ex_embedding in self.example_embeddings:
                 similarity = np.dot(question_embedding, ex_embedding) / (
@@ -293,10 +295,8 @@ def _(FEW_SHOT_EXAMPLES,np):
                 )
                 similarities.append(similarity)
             
-            # Get indices of top-k most similar examples
             top_k_indices = np.argsort(similarities)[-self.k:][::-1]
             
-            # Return the top-k examples
             return [self.examples[i] for i in top_k_indices]
         
         def format_examples_for_prompt(self, examples: list[dict]) -> str:
@@ -325,22 +325,27 @@ def _(
     Text2Cypher,
     dspy,
 ):
+    from profiler import Profiler
+    from lru_cache import Text2CypherCache
+    from performance_data import PerformanceDataExporter
+
     class GraphRAG(dspy.Module):
         """
         DSPy custom module that applies Text2Cypher to generate a query and run it
         on the Kuzu database, to generate a natural language response.
         """
 
-        def __init__(self, use_few_shot: bool = True, k_examples: int = 3):
-            """
-            Initialize GraphRAG module.
-            
-            """
+        def __init__(self, use_few_shot: bool = True, k_examples: int = 3, cache_size: int = 3):
+
             self.prune = dspy.Predict(PruneSchema)
             self.text2cypher = dspy.ChainOfThought(Text2Cypher)
             self.generate_answer = dspy.ChainOfThought(AnswerQuestion)
-            
-            # Initialize few-shot retriever if enabled
+
+            self.profiler = Profiler()
+
+            self.cache = Text2CypherCache(max_size=cache_size)
+            print(f"Text2Cypher cache initialized (max size: {cache_size})")
+
             self.use_few_shot = use_few_shot
             if use_few_shot:
                 self.few_shot_retriever = FewShotRetriever(
@@ -351,6 +356,34 @@ def _(
             else:
                 self.few_shot_retriever = None
                 print("Running without few-shot examples")
+            
+            self.exporter = PerformanceDataExporter()
+            self.query_counter = 0
+            self.session_id = None
+
+        def _get_session_filename(self):
+            
+            if self.session_id is None:
+                from datetime import datetime
+                self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+            return f"session_{self.session_id}"
+
+        def _export_now(self):
+            try:
+                session_filename = self._get_session_filename()
+                self.exporter.export_simple(session_filename)
+            except Exception as e:
+                print(f"Export error: {e}")
+                import traceback
+                traceback.print_exc()
+
+        def __del__(self):
+            try:
+                if hasattr(self, 'query_counter') and self.query_counter > 0:
+                    self._export_now()
+            except Exception as e:
+                import sys
+                print(f"Warning during cleanup: {e}", file=sys.stderr)
 
         @staticmethod
         def _clean_cypher(query: str) -> str:
@@ -568,44 +601,56 @@ def _(
             previous_query: str | None = None,
             error_message: str | None = None,
         ) -> str:
-            """
-            Generate Cypher query with optional dynamic few-shot examples.
             
-            """
-            # Prune schema
-            prune_result = self.prune(question=question, input_schema=input_schema)
-            schema = prune_result.pruned_schema
+            if previous_query is None and error_message is None:
+                with self.profiler.profile("cache_lookup"):
+                    cached_query = self.cache.get(question, input_schema)
+                    if cached_query:
+                        print(f"Cache hit for question: {question[:50]}...")
+                        return cached_query
+
+            with self.profiler.profile("schema_pruning"):
+                prune_result = self.prune(question=question, input_schema=input_schema)
+                schema = prune_result.pruned_schema
+
             previous_query_text = previous_query or ""
             error_text = error_message or ""
 
-            # Retrieve and format few-shot examples if enabled
             if self.use_few_shot and self.few_shot_retriever:
-                similar_examples = self.few_shot_retriever.retrieve(question)
-                examples_text = self.few_shot_retriever.format_examples_for_prompt(similar_examples)
+                with self.profiler.profile("few_shot_retrieval"):
+                    similar_examples = self.few_shot_retriever.retrieve(question)
+                    examples_text = self.few_shot_retriever.format_examples_for_prompt(similar_examples)
                 
-                # Add examples to the schema context
                 enhanced_schema = f"{examples_text}\n\nSchema:\n{str(schema)}"
-                
-                # Generate Cypher query with examples
-                text2cypher_result = self.text2cypher(
-                    question=question,
-                    input_schema=enhanced_schema,
-                    previous_query=previous_query_text,
-                    error_message=error_text,
+        
+                with self.profiler.profile("text2cypher_generation"):
+                    text2cypher_result = self.text2cypher(
+                        question=question,
+                        input_schema=enhanced_schema,
+                        previous_query=previous_query_text,
+                        error_message=error_text,
                 )
             else:
                 # Generate without examples (original behavior)
-                text2cypher_result = self.text2cypher(
-                    question=question,
-                    input_schema=str(schema),
-                    previous_query=previous_query_text,
-                    error_message=error_text,
+                with self.profiler.profile("text2cypher_generation"):
+                    text2cypher_result = self.text2cypher(
+                        question=question,
+                        input_schema=str(schema),
+                        previous_query=previous_query_text,
+                        error_message=error_text,
                 )
             
             cypher_query: str = text2cypher_result.query
             # clean markdown fences
-            cypher_query = self._clean_cypher(cypher_query)
-            cypher_query = self.postprocess_cypher(cypher_query)
+            with self.profiler.profile("post_processing"):
+                cypher_query = self._clean_cypher(cypher_query)
+                cypher_query = self.postprocess_cypher(cypher_query)
+
+            # cache the query if this is a successful initial generation (not a repair)
+            if previous_query is None and error_message is None:
+                with self.profiler.profile("cache_store"):
+                    self.cache.put(question, input_schema, cypher_query)
+
             return cypher_query
 
         def run_query(
@@ -615,23 +660,29 @@ def _(
             Run a query synchronously on the database with a self-refinement loop.
             """
             max_attempts = 3
-            previous_query = ""
-            error_message = ""
+            previous_query = None
+            error_message = None
             final_query = ""
 
+            attempt_no = 0
+
             for _ in range(max_attempts):
-                candidate_query = self.get_cypher_query(
-                    question=question,
-                    input_schema=input_schema,
-                    previous_query=previous_query,
-                    error_message=error_message,
+                attempt_no += 1
+                stage_name = f"text2cypher_attempt_{attempt_no}"
+                with self.profiler.profile(stage_name):
+                    candidate_query = self.get_cypher_query(
+                        question=question,
+                        input_schema=input_schema,
+                        previous_query=previous_query,
+                        error_message=error_message,
                 )
 
                 if not candidate_query:
                     break
 
                 try:
-                    db_manager.conn.execute(f"EXPLAIN {candidate_query}")
+                    with self.profiler.profile("query_validation"):
+                        db_manager.conn.execute(f"EXPLAIN {candidate_query}")
                 except Exception as e:
                     previous_query = candidate_query
                     error_message = str(e)
@@ -648,39 +699,94 @@ def _(
                 return previous_query or "", None
 
             try:
-                result = db_manager.conn.execute(final_query)
-                results = [item for row in result for item in row]
+                with self.profiler.profile("query_execution"):
+                    result = db_manager.conn.execute(final_query)
+                    results = [item for row in result for item in row]
             except RuntimeError as e:
                 print(f"Error running query: {e}")
                 results = None
 
+            
+
             return final_query, results
 
         def forward(self, db_manager, question: str, input_schema: str):
-            final_query, final_context = self.run_query(
-                db_manager, question, input_schema
-            )
-            if final_context is None:
-                print(
-                    "Empty results obtained from the graph database. Please retry with a different question."
-                )
-                return {
-                    "question": question,
-                    "query": final_query,
-                    "answer": dspy.Prediction(response="No results from the graph."),
+
+            self.query_counter += 1
+            start_time = time.time()
+
+            initial_cache_hits = self.cache.stats.hits
+
+            with self.profiler.profile("total_pipeline"):
+                with self.profiler.profile("query_phase"):
+                    final_query, final_context = self.run_query(
+                        db_manager, question, input_schema
+                    )
+
+                if final_context is None:
+                    print(
+                        "Empty results obtained from the graph database. Please retry with a different question."
+                    )
+
+                    total_time = time.time() - start_time
+                    stage_times = {
+                        stage_name: stage_metrics.last_duration
+                        for stage_name, stage_metrics in self.profiler.stages.items()
+                        if stage_metrics.durations
+                    }
+
+                    final_cache_hits = self.cache.stats.hits
+                    cache_hit = (final_cache_hits > initial_cache_hits)
+
+                    self.exporter.record_query(
+                        query_no= self.query_counter,
+                        question=question,
+                        cache_hit=cache_hit,
+                        total_time= total_time,
+                        stage_time=stage_times
+                    )
+
+                    self._export_now()
+                    return {
+                        "question": question,
+                        "query": final_query,
+                        "answer": dspy.Prediction(response="No results from the graph."),
                 }
-            else:
-                answer = self.generate_answer(
-                    question=question,
-                    cypher_query=final_query,
-                    context=str(final_context),
+                else:
+                    with self.profiler.profile("answer_generation"):
+                        answer = self.generate_answer(
+                            question=question,
+                            cypher_query=final_query,
+                            context=str(final_context),
                 )
-                response = {
-                    "question": question,
-                    "query": final_query,
-                    "answer": answer,
-                }
-                return response
+                    
+                    response = {
+                        "question": question,
+                        "query": final_query,
+                        "answer": answer,
+                    }
+
+                    total_time = time.time() - start_time
+                    stage_times = {
+                        stage_name: stage_metrics.last_duration
+                        for stage_name, stage_metrics in self.profiler.stages.items()
+                        if stage_metrics.durations
+                    }
+                    final_cache_hits = self.cache.stats.hits
+                    cache_hit = (final_cache_hits > initial_cache_hits)
+                    self.exporter.record_query(
+                        query_no= self.query_counter,
+                        question=question,
+                        cache_hit=cache_hit,
+                        total_time= total_time,
+                        stage_time=stage_times
+                    )
+
+                    print("\n")
+                    self.print_timing_summary()
+                    self._export_now()
+
+                    return response
 
         async def aforward(self, db_manager, question: str, input_schema: str):
             final_query, final_context = self.run_query(
@@ -707,13 +813,52 @@ def _(
                     "answer": answer,
                 }
                 return response
+            
+        def get_timing_results(self) -> dict:
+            return self.profiler.get_summary_dict()
+        
+        def print_timing_summary(self) -> None:
+            self.profiler.print_summary()
+            self.cache.print_stats()
 
-    def run_graph_rag(questions: list[str], db_manager, use_few_shot: bool = True, k_examples: int = 3) -> list:
+        def get_cache_stats(self) -> dict:
+            stats = self.cache.get_stats()
+            return{
+                "cache_size": len(self.cache),
+                "max_size": self.cache.max_size,
+                "total_requests": stats.total_requests,
+                "hits": stats.hits,
+                "misses": stats.misses,
+                "hit_rate": stats.hit_rate,
+                "evictions": stats.evictions
+
+            }
+
+
+        def reset_timing(self) -> None:
+            self.profiler.reset()
+            self.cache.stats.reset()
+        
+        def export_performance_data(self, base_filename: str = None):
+
+            profiler_data = self.profiler.get_summary_dict()
+            cache_stats = {
+                "total_requests": self.cache.stats.total_requests,
+                "hits": self.cache.stats.hits,
+                "misses": self.cache.stats.misses,
+                "hit_rate": self.cache.stats.hit_rate,
+                "evictions": self.cache.stats.evictions,
+                "cache_size": len(self.cache.cache)
+            }
+
+            return self.exporter.export_all(profiler_data, cache_stats, base_filename)
+
+    def run_graph_rag(questions: list[str], db_manager, use_few_shot: bool = True, k_examples: int = 3, cache_size: int = 128) -> list:
         """
         Run GraphRAG on a list of questions.
         """
         schema = str(db_manager.get_schema_dict)
-        rag = GraphRAG(use_few_shot=use_few_shot, k_examples=k_examples)
+        rag = GraphRAG(use_few_shot=use_few_shot, k_examples=k_examples, cache_size=cache_size)
         results = []
         for question in questions:
             response = rag(
@@ -722,7 +867,7 @@ def _(
                 input_schema=schema,
             )
             results.append(response)
-        return results
+        return results, rag
 
     return (GraphRAG, run_graph_rag)
 
@@ -738,6 +883,7 @@ def _():
     import marimo as mo
     import os
     import re
+    import time
     from textwrap import dedent
     from typing import Any
 

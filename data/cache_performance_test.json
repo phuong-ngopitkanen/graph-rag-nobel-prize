@@ -1,0 +1,2577 @@
+[
+  {
+    "cache_size": 0,
+    "query_set": "exact_repeats",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 3.188206911087036,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.11420392990112305,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.06817483901977539,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 18.174943685531616,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.09206604957580566,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.588599681854248,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 11.130520343780518,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.08901214599609375,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.609622001647949,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "What is the total prize amount awarded in Physics?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+        "execution_time": 0.06788945198059082,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 38.123239040374756,
+      "average_query_time": 3.8123239040374757,
+      "cache_hits": 0,
+      "cache_misses": 10,
+      "cache_hit_rate": 0.0,
+      "final_cache_stats": {
+        "cache_size": 0,
+        "max_size": 0,
+        "total_requests": 10,
+        "hits": 0,
+        "misses": 10,
+        "hit_rate": 0.0,
+        "evictions": 10
+      }
+    }
+  },
+  {
+    "cache_size": 0,
+    "query_set": "similar_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 12.209493398666382,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 28.887059926986694,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "List all scholars who won a Physics prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.fullName AS laureate",
+        "execution_time": 22.54136824607849,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "Which institutions have affiliated Physics laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT i.name AS institution",
+        "execution_time": 10.83988904953003,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many Physics prizes were awarded from 2000 onwards?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND p.awardYear >= 2000 RETURN COUNT(DISTINCT p) AS count",
+        "execution_time": 6.573530912399292,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which Physics laureates were born in Europe?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize), (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(con.name) CONTAINS toLower('europe') RETURN DISTINCT s.knownName",
+        "execution_time": 18.833259105682373,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 4.638515472412109,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "How many scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 9.080123662948608,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which Physics laureates were affiliated with institutions in Japan?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 7.966700077056885,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which Physics laureates were born in cities located in Asia?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('asia') AND toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 2.5753567218780518,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 124.14529657363892,
+      "average_query_time": 12.414529657363891,
+      "cache_hits": 0,
+      "cache_misses": 10,
+      "cache_hit_rate": 0.0,
+      "final_cache_stats": {
+        "cache_size": 0,
+        "max_size": 0,
+        "total_requests": 10,
+        "hits": 0,
+        "misses": 10,
+        "hit_rate": 0.0,
+        "evictions": 10
+      }
+    }
+  },
+  {
+    "cache_size": 0,
+    "query_set": "diverse_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 3.0233304500579834,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.08481454849243164,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 11.27045226097107,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "What is the total prize amount awarded in Physics?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+        "execution_time": 0.06937742233276367,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "Which Economics laureates were affiliated with Harvard University?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(i.name) CONTAINS toLower('harvard') RETURN DISTINCT s.knownName",
+        "execution_time": 11.030721664428711,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "How many laureates died in the United States?",
+        "cypher_query": "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.10186266899108887,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which continents have Chemistry laureates by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent",
+        "execution_time": 20.901622533798218,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "For each prize category, how many distinct laureates are there?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates",
+        "execution_time": 7.410511493682861,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which institutions have hosted laureates from more than one prize category?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WITH i, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE SIZE(categories) > 1 RETURN i.name AS institution, SIZE(categories) AS numCategories",
+        "execution_time": 9.222795724868774,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WITH ci, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN ci.name AS city",
+        "execution_time": 49.72365689277649,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 112.83914566040039,
+      "average_query_time": 11.283914566040039,
+      "cache_hits": 0,
+      "cache_misses": 10,
+      "cache_hit_rate": 0.0,
+      "final_cache_stats": {
+        "cache_size": 0,
+        "max_size": 0,
+        "total_requests": 10,
+        "hits": 0,
+        "misses": 10,
+        "hit_rate": 0.0,
+        "evictions": 10
+      }
+    }
+  },
+  {
+    "cache_size": 0,
+    "query_set": "mixed_pattern",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 2.867650270462036,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many scholars won prizes in Chemistry?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.07202577590942383,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 5.68287467956543,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "List all scholars who won a Medicine prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName",
+        "execution_time": 14.093785285949707,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many scholars won prizes in Chemistry?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.07841134071350098,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which continents have Chemistry laureates by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent",
+        "execution_time": 10.526862859725952,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 4.781311511993408,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "Which institutions have affiliated Physics laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT i.name AS institution",
+        "execution_time": 16.708678722381592,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "List all scholars who won a Medicine prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName",
+        "execution_time": 17.025885343551636,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "How many prizes were awarded in Economics after 1980?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear > 1980 RETURN COUNT(DISTINCT p) AS count",
+        "execution_time": 8.79903531074524,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 80.63652110099792,
+      "average_query_time": 8.063652110099792,
+      "cache_hits": 0,
+      "cache_misses": 10,
+      "cache_hit_rate": 0.0,
+      "final_cache_stats": {
+        "cache_size": 0,
+        "max_size": 0,
+        "total_requests": 10,
+        "hits": 0,
+        "misses": 10,
+        "hit_rate": 0.0,
+        "evictions": 10
+      }
+    }
+  },
+  {
+    "cache_size": 0,
+    "query_set": "complex_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 8.429129362106323,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "For each prize category, how many distinct laureates are there?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates",
+        "execution_time": 0.07944035530090332,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which countries have produced laureates in both Physics and Chemistry by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN co.name AS country",
+        "execution_time": 10.921096324920654,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "Which laureates were affiliated with institutions on a different continent than their birth continent?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) RETURN DISTINCT s.knownName",
+        "execution_time": 9.48429822921753,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "For each continent, how many distinct laureates have affiliated institutions there?",
+        "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureates",
+        "execution_time": 14.068691730499268,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 8.398388862609863,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which countries have produced laureates who won prizes in both Medicine and Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'medicine' IN categories AND 'physics' IN categories RETURN co.name AS country",
+        "execution_time": 11.73477053642273,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureates",
+        "execution_time": 12.359175682067871,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which scholars have affiliations in at least three different countries?",
+        "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.knownName AS scholar, numCountries",
+        "execution_time": 8.26667833328247,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.knownName AS laureate, bCity.name AS city",
+        "execution_time": 29.295660257339478,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 113.03732967376709,
+      "average_query_time": 11.303732967376709,
+      "cache_hits": 0,
+      "cache_misses": 10,
+      "cache_hit_rate": 0.0,
+      "final_cache_stats": {
+        "cache_size": 0,
+        "max_size": 0,
+        "total_requests": 10,
+        "hits": 0,
+        "misses": 10,
+        "hit_rate": 0.0,
+        "evictions": 10
+      }
+    }
+  },
+  {
+    "cache_size": 3,
+    "query_set": "exact_repeats",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.006106376647949,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.08709478378295898,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.534904956817627,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 8.619524717330933,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.027516603469848633,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 3.4375483989715576,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 3.61173677444458,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.04536938667297363,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.053235769271850586,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "What is the total prize amount awarded in Physics?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+        "execution_time": 0.07690930366516113,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 20.49994707107544,
+      "average_query_time": 2.049994707107544,
+      "cache_hits": 6,
+      "cache_misses": 4,
+      "cache_hit_rate": 60.0,
+      "final_cache_stats": {
+        "cache_size": 3,
+        "max_size": 3,
+        "total_requests": 10,
+        "hits": 6,
+        "misses": 4,
+        "hit_rate": 60.0,
+        "evictions": 1
+      }
+    }
+  },
+  {
+    "cache_size": 3,
+    "query_set": "similar_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 7.548569440841675,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 8.692795753479004,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "List all scholars who won a Physics prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.fullName AS laureate",
+        "execution_time": 16.60431408882141,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "Which institutions have affiliated Physics laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT i.name AS institution",
+        "execution_time": 11.891795873641968,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many Physics prizes were awarded from 2000 onwards?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND p.awardYear >= 2000 RETURN COUNT(DISTINCT p) AS count",
+        "execution_time": 0.09975886344909668,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which Physics laureates were born in Europe?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize), (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(con.name) CONTAINS toLower('europe') RETURN DISTINCT s.knownName",
+        "execution_time": 12.315934658050537,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 6.06235408782959,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "How many scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 8.850736856460571,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which Physics laureates were affiliated with institutions in Japan?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 0.07422089576721191,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which Physics laureates were born in cities located in Asia?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('asia') AND toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 2.581082344055176,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 74.72156286239624,
+      "average_query_time": 7.472156286239624,
+      "cache_hits": 0,
+      "cache_misses": 10,
+      "cache_hit_rate": 0.0,
+      "final_cache_stats": {
+        "cache_size": 3,
+        "max_size": 3,
+        "total_requests": 10,
+        "hits": 0,
+        "misses": 10,
+        "hit_rate": 0.0,
+        "evictions": 7
+      }
+    }
+  },
+  {
+    "cache_size": 3,
+    "query_set": "diverse_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.990957021713257,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.08909916877746582,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 11.615217447280884,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "What is the total prize amount awarded in Physics?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+        "execution_time": 0.10388565063476562,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "Which Economics laureates were affiliated with Harvard University?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(i.name) CONTAINS toLower('harvard') RETURN DISTINCT s.knownName",
+        "execution_time": 36.31859111785889,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "How many laureates died in the United States?",
+        "cypher_query": "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.09961485862731934,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which continents have Chemistry laureates by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent",
+        "execution_time": 10.956094741821289,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "For each prize category, how many distinct laureates are there?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates",
+        "execution_time": 2.9712870121002197,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which institutions have hosted laureates from more than one prize category?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WITH i, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE SIZE(categories) > 1 RETURN i.name AS institution, SIZE(categories) AS numCategories",
+        "execution_time": 10.655533075332642,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WITH ci, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN ci.name AS city",
+        "execution_time": 10.744980812072754,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 86.54526090621948,
+      "average_query_time": 8.654526090621948,
+      "cache_hits": 0,
+      "cache_misses": 10,
+      "cache_hit_rate": 0.0,
+      "final_cache_stats": {
+        "cache_size": 3,
+        "max_size": 3,
+        "total_requests": 10,
+        "hits": 0,
+        "misses": 10,
+        "hit_rate": 0.0,
+        "evictions": 7
+      }
+    }
+  },
+  {
+    "cache_size": 3,
+    "query_set": "mixed_pattern",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 6.850401878356934,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many scholars won prizes in Chemistry?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.07343292236328125,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 7.235388517379761,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "List all scholars who won a Medicine prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName",
+        "execution_time": 13.058329582214355,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many scholars won prizes in Chemistry?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.032639503479003906,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which continents have Chemistry laureates by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent",
+        "execution_time": 8.583878517150879,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 4.89725661277771,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "Which institutions have affiliated Physics laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT i.name AS institution",
+        "execution_time": 21.510496139526367,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "List all scholars who won a Medicine prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName",
+        "execution_time": 14.537944555282593,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "How many prizes were awarded in Economics after 1980?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear > 1980 RETURN COUNT(DISTINCT p) AS count",
+        "execution_time": 8.471720933914185,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 85.25148916244507,
+      "average_query_time": 8.525148916244508,
+      "cache_hits": 2,
+      "cache_misses": 8,
+      "cache_hit_rate": 20.0,
+      "final_cache_stats": {
+        "cache_size": 3,
+        "max_size": 3,
+        "total_requests": 10,
+        "hits": 2,
+        "misses": 8,
+        "hit_rate": 20.0,
+        "evictions": 5
+      }
+    }
+  },
+  {
+    "cache_size": 3,
+    "query_set": "complex_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 8.397695064544678,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "For each prize category, how many distinct laureates are there?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates",
+        "execution_time": 0.07137393951416016,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which countries have produced laureates in both Physics and Chemistry by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN co.name AS country",
+        "execution_time": 0.08786964416503906,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "Which laureates were affiliated with institutions on a different continent than their birth continent?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) RETURN DISTINCT s.knownName",
+        "execution_time": 7.03983998298645,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "For each continent, how many distinct laureates have affiliated institutions there?",
+        "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureates",
+        "execution_time": 0.10592341423034668,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 8.449965476989746,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which countries have produced laureates who won prizes in both Medicine and Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'medicine' IN categories AND 'physics' IN categories RETURN co.name AS country",
+        "execution_time": 10.899399042129517,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureates",
+        "execution_time": 2.1537086963653564,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which scholars have affiliations in at least three different countries?",
+        "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.knownName AS scholar, numCountries",
+        "execution_time": 8.67228889465332,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.knownName AS laureate, bCity.name AS city",
+        "execution_time": 15.706452369689941,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 61.584516525268555,
+      "average_query_time": 6.158451652526855,
+      "cache_hits": 0,
+      "cache_misses": 10,
+      "cache_hit_rate": 0.0,
+      "final_cache_stats": {
+        "cache_size": 3,
+        "max_size": 3,
+        "total_requests": 10,
+        "hits": 0,
+        "misses": 10,
+        "hit_rate": 0.0,
+        "evictions": 7
+      }
+    }
+  },
+  {
+    "cache_size": 10,
+    "query_set": "exact_repeats",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.492518186569214,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.09330534934997559,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.233919620513916,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 10.955962419509888,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.04010200500488281,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.5252578258514404,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 2.768500804901123,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.040319204330444336,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.04524683952331543,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "What is the total prize amount awarded in Physics?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+        "execution_time": 0.08073019981384277,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 21.275862455368042,
+      "average_query_time": 2.127586245536804,
+      "cache_hits": 6,
+      "cache_misses": 4,
+      "cache_hit_rate": 60.0,
+      "final_cache_stats": {
+        "cache_size": 4,
+        "max_size": 10,
+        "total_requests": 10,
+        "hits": 6,
+        "misses": 4,
+        "hit_rate": 60.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 10,
+    "query_set": "similar_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 4.630152225494385,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 8.335366487503052,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "List all scholars who won a Physics prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.fullName AS laureate",
+        "execution_time": 13.477036714553833,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "Which institutions have affiliated Physics laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT i.name AS institution",
+        "execution_time": 12.608365297317505,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many Physics prizes were awarded from 2000 onwards?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND p.awardYear >= 2000 RETURN COUNT(DISTINCT p) AS count",
+        "execution_time": 0.0733633041381836,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which Physics laureates were born in Europe?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize), (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(con.name) CONTAINS toLower('europe') RETURN DISTINCT s.knownName",
+        "execution_time": 15.167911052703857,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 2.662114381790161,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "How many scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.03610396385192871,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which Physics laureates were affiliated with institutions in Japan?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 0.08807110786437988,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which Physics laureates were born in cities located in Asia?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('asia') AND toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 0.08181905746459961,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 57.160303592681885,
+      "average_query_time": 5.7160303592681885,
+      "cache_hits": 2,
+      "cache_misses": 8,
+      "cache_hit_rate": 20.0,
+      "final_cache_stats": {
+        "cache_size": 8,
+        "max_size": 10,
+        "total_requests": 10,
+        "hits": 2,
+        "misses": 8,
+        "hit_rate": 20.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 10,
+    "query_set": "diverse_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.07706999778747559,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.07017230987548828,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 11.05834698677063,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "What is the total prize amount awarded in Physics?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+        "execution_time": 0.06327128410339355,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "Which Economics laureates were affiliated with Harvard University?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(i.name) CONTAINS toLower('harvard') RETURN DISTINCT s.knownName",
+        "execution_time": 11.135210275650024,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "How many laureates died in the United States?",
+        "cypher_query": "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.07775592803955078,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which continents have Chemistry laureates by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent",
+        "execution_time": 8.914419651031494,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "For each prize category, how many distinct laureates are there?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates",
+        "execution_time": 0.054604291915893555,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which institutions have hosted laureates from more than one prize category?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WITH i, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE SIZE(categories) > 1 RETURN i.name AS institution, SIZE(categories) AS numCategories",
+        "execution_time": 27.764116287231445,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WITH ci, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN ci.name AS city",
+        "execution_time": 11.684890270233154,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 70.89985728263855,
+      "average_query_time": 7.089985728263855,
+      "cache_hits": 0,
+      "cache_misses": 10,
+      "cache_hit_rate": 0.0,
+      "final_cache_stats": {
+        "cache_size": 10,
+        "max_size": 10,
+        "total_requests": 10,
+        "hits": 0,
+        "misses": 10,
+        "hit_rate": 0.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 10,
+    "query_set": "mixed_pattern",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 6.1221325397491455,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many scholars won prizes in Chemistry?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.0682535171508789,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 3.8299291133880615,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "List all scholars who won a Medicine prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName",
+        "execution_time": 12.317044734954834,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many scholars won prizes in Chemistry?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.040518760681152344,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which continents have Chemistry laureates by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent",
+        "execution_time": 8.721284627914429,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 4.229949712753296,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "Which institutions have affiliated Physics laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT i.name AS institution",
+        "execution_time": 12.77701473236084,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "List all scholars who won a Medicine prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName",
+        "execution_time": 3.3781614303588867,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "How many prizes were awarded in Economics after 1980?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear > 1980 RETURN COUNT(DISTINCT p) AS count",
+        "execution_time": 8.897987127304077,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 60.3822762966156,
+      "average_query_time": 6.03822762966156,
+      "cache_hits": 4,
+      "cache_misses": 6,
+      "cache_hit_rate": 40.0,
+      "final_cache_stats": {
+        "cache_size": 6,
+        "max_size": 10,
+        "total_requests": 10,
+        "hits": 4,
+        "misses": 6,
+        "hit_rate": 40.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 10,
+    "query_set": "complex_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 8.252361536026001,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "For each prize category, how many distinct laureates are there?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates",
+        "execution_time": 0.0633232593536377,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which countries have produced laureates in both Physics and Chemistry by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN co.name AS country",
+        "execution_time": 2.0123045444488525,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "Which laureates were affiliated with institutions on a different continent than their birth continent?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) RETURN DISTINCT s.knownName",
+        "execution_time": 2.276212215423584,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "For each continent, how many distinct laureates have affiliated institutions there?",
+        "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureates",
+        "execution_time": 0.1181643009185791,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.04435467720031738,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which countries have produced laureates who won prizes in both Medicine and Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'medicine' IN categories AND 'physics' IN categories RETURN co.name AS country",
+        "execution_time": 11.523172855377197,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureates",
+        "execution_time": 2.7456960678100586,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which scholars have affiliations in at least three different countries?",
+        "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.knownName AS scholar, numCountries",
+        "execution_time": 9.0743727684021,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.knownName AS laureate, bCity.name AS city",
+        "execution_time": 18.262211799621582,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 54.37217402458191,
+      "average_query_time": 5.437217402458191,
+      "cache_hits": 1,
+      "cache_misses": 9,
+      "cache_hit_rate": 10.0,
+      "final_cache_stats": {
+        "cache_size": 9,
+        "max_size": 10,
+        "total_requests": 10,
+        "hits": 1,
+        "misses": 9,
+        "hit_rate": 10.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 50,
+    "query_set": "exact_repeats",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.07599163055419922,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.07638216018676758,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.03329753875732422,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 11.30248498916626,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.06563973426818848,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.6001174449920654,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 5.538891792297363,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.03628945350646973,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.03656291961669922,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "What is the total prize amount awarded in Physics?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+        "execution_time": 0.1141362190246582,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 19.879793882369995,
+      "average_query_time": 1.9879793882369996,
+      "cache_hits": 6,
+      "cache_misses": 4,
+      "cache_hit_rate": 60.0,
+      "final_cache_stats": {
+        "cache_size": 4,
+        "max_size": 50,
+        "total_requests": 10,
+        "hits": 6,
+        "misses": 4,
+        "hit_rate": 60.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 50,
+    "query_set": "similar_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 5.695763826370239,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 9.107043266296387,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "List all scholars who won a Physics prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.fullName AS laureate",
+        "execution_time": 16.73341202735901,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "Which institutions have affiliated Physics laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT i.name AS institution",
+        "execution_time": 13.75741457939148,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many Physics prizes were awarded from 2000 onwards?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND p.awardYear >= 2000 RETURN COUNT(DISTINCT p) AS count",
+        "execution_time": 0.0950629711151123,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which Physics laureates were born in Europe?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize), (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(con.name) CONTAINS toLower('europe') RETURN DISTINCT s.knownName",
+        "execution_time": 11.642999649047852,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 7.22399640083313,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "How many scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.03412199020385742,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which Physics laureates were affiliated with institutions in Japan?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 0.0899195671081543,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which Physics laureates were born in cities located in Asia?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('asia') AND toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 0.1278681755065918,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 64.50760245323181,
+      "average_query_time": 6.450760245323181,
+      "cache_hits": 2,
+      "cache_misses": 8,
+      "cache_hit_rate": 20.0,
+      "final_cache_stats": {
+        "cache_size": 8,
+        "max_size": 50,
+        "total_requests": 10,
+        "hits": 2,
+        "misses": 8,
+        "hit_rate": 20.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 50,
+    "query_set": "diverse_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.6969549655914307,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.0783841609954834,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 9.152995347976685,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "What is the total prize amount awarded in Physics?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+        "execution_time": 0.061051368713378906,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "Which Economics laureates were affiliated with Harvard University?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(i.name) CONTAINS toLower('harvard') RETURN DISTINCT s.knownName",
+        "execution_time": 10.844444990158081,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "How many laureates died in the United States?",
+        "cypher_query": "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.08476829528808594,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which continents have Chemistry laureates by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent",
+        "execution_time": 8.844645023345947,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "For each prize category, how many distinct laureates are there?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates",
+        "execution_time": 0.07118558883666992,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which institutions have hosted laureates from more than one prize category?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WITH i, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE SIZE(categories) > 1 RETURN i.name AS institution, SIZE(categories) AS numCategories",
+        "execution_time": 5.125713348388672,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WITH ci, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN ci.name AS city",
+        "execution_time": 8.694838047027588,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 45.65498113632202,
+      "average_query_time": 4.565498113632202,
+      "cache_hits": 0,
+      "cache_misses": 10,
+      "cache_hit_rate": 0.0,
+      "final_cache_stats": {
+        "cache_size": 10,
+        "max_size": 50,
+        "total_requests": 10,
+        "hits": 0,
+        "misses": 10,
+        "hit_rate": 0.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 50,
+    "query_set": "mixed_pattern",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 4.982724189758301,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many scholars won prizes in Chemistry?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.05605673789978027,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 5.810218811035156,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "List all scholars who won a Medicine prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName",
+        "execution_time": 11.189620018005371,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many scholars won prizes in Chemistry?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.035970449447631836,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which continents have Chemistry laureates by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent",
+        "execution_time": 8.414040327072144,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 6.090672016143799,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "Which institutions have affiliated Physics laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT i.name AS institution",
+        "execution_time": 14.885750532150269,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "List all scholars who won a Medicine prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName",
+        "execution_time": 3.0318102836608887,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "How many prizes were awarded in Economics after 1980?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear > 1980 RETURN COUNT(DISTINCT p) AS count",
+        "execution_time": 8.642760753631592,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 63.13962411880493,
+      "average_query_time": 6.313962411880493,
+      "cache_hits": 4,
+      "cache_misses": 6,
+      "cache_hit_rate": 40.0,
+      "final_cache_stats": {
+        "cache_size": 6,
+        "max_size": 50,
+        "total_requests": 10,
+        "hits": 4,
+        "misses": 6,
+        "hit_rate": 40.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 50,
+    "query_set": "complex_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 8.42363953590393,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "For each prize category, how many distinct laureates are there?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates",
+        "execution_time": 0.07737350463867188,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which countries have produced laureates in both Physics and Chemistry by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN co.name AS country",
+        "execution_time": 0.24700570106506348,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "Which laureates were affiliated with institutions on a different continent than their birth continent?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) RETURN DISTINCT s.knownName",
+        "execution_time": 3.336369037628174,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "For each continent, how many distinct laureates have affiliated institutions there?",
+        "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureates",
+        "execution_time": 2.4974846839904785,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.043848514556884766,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which countries have produced laureates who won prizes in both Medicine and Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'medicine' IN categories AND 'physics' IN categories RETURN co.name AS country",
+        "execution_time": 8.564760208129883,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureates",
+        "execution_time": 0.14279842376708984,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which scholars have affiliations in at least three different countries?",
+        "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.knownName AS scholar, numCountries",
+        "execution_time": 8.49933409690857,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.knownName AS laureate, bCity.name AS city",
+        "execution_time": 13.266409635543823,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 45.09902334213257,
+      "average_query_time": 4.5099023342132565,
+      "cache_hits": 1,
+      "cache_misses": 9,
+      "cache_hit_rate": 10.0,
+      "final_cache_stats": {
+        "cache_size": 9,
+        "max_size": 50,
+        "total_requests": 10,
+        "hits": 1,
+        "misses": 9,
+        "hit_rate": 10.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 128,
+    "query_set": "exact_repeats",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.691511392593384,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.09917020797729492,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.03460288047790527,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 11.567869424819946,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.04951357841491699,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.435187339782715,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 3.377073287963867,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.07099771499633789,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.04115033149719238,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "What is the total prize amount awarded in Physics?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+        "execution_time": 0.07456707954406738,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 20.441643238067627,
+      "average_query_time": 2.0441643238067626,
+      "cache_hits": 6,
+      "cache_misses": 4,
+      "cache_hit_rate": 60.0,
+      "final_cache_stats": {
+        "cache_size": 4,
+        "max_size": 128,
+        "total_requests": 10,
+        "hits": 6,
+        "misses": 4,
+        "hit_rate": 60.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 128,
+    "query_set": "similar_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 12.777461528778076,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 8.90255069732666,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "List all scholars who won a Physics prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.fullName AS laureate",
+        "execution_time": 13.182037353515625,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "Which institutions have affiliated Physics laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT i.name AS institution",
+        "execution_time": 15.478022336959839,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many Physics prizes were awarded from 2000 onwards?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') AND p.awardYear >= 2000 RETURN COUNT(DISTINCT p) AS count",
+        "execution_time": 0.08350992202758789,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which Physics laureates were born in Europe?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize), (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(con.name) CONTAINS toLower('europe') RETURN DISTINCT s.knownName",
+        "execution_time": 11.613157510757446,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 10.658839464187622,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "How many scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.025085926055908203,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which Physics laureates were affiliated with institutions in Japan?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(co:Country) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(co.name) CONTAINS toLower('japan') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 0.08779263496398926,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which Physics laureates were born in cities located in Asia?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) MATCH (s)-[:WON]->(p:Prize) WHERE toLower(con.name) CONTAINS toLower('asia') AND toLower(p.category) CONTAINS toLower('physics') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 2.6856729984283447,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 75.4941303730011,
+      "average_query_time": 7.54941303730011,
+      "cache_hits": 2,
+      "cache_misses": 8,
+      "cache_hit_rate": 20.0,
+      "final_cache_stats": {
+        "cache_size": 8,
+        "max_size": 128,
+        "total_requests": 10,
+        "hits": 2,
+        "misses": 8,
+        "hit_rate": 20.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 128,
+    "query_set": "diverse_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics and were affiliated with University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('physics') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 2.2297120094299316,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many laureates were born in Germany?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('Germany') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.07968902587890625,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "List all female laureates who won prizes in Chemistry.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') AND toLower(s.gender) CONTAINS toLower('female') RETURN DISTINCT s.knownName AS laureate",
+        "execution_time": 11.185600519180298,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "What is the total prize amount awarded in Physics?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('physics') RETURN SUM(p.prizeAmount) AS totalPrizeAmount",
+        "execution_time": 0.0695195198059082,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "Which Economics laureates were affiliated with Harvard University?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('economics') AND toLower(i.name) CONTAINS toLower('harvard') RETURN DISTINCT s.knownName",
+        "execution_time": 33.522660970687866,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "How many laureates died in the United States?",
+        "cypher_query": "MATCH (s:Scholar)-[:DIED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS toLower('united states') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.10366511344909668,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which continents have Chemistry laureates by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent",
+        "execution_time": 8.41689682006836,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "For each prize category, how many distinct laureates are there?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates",
+        "execution_time": 0.09739017486572266,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which institutions have hosted laureates from more than one prize category?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WITH i, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE SIZE(categories) > 1 RETURN i.name AS institution, SIZE(categories) AS numCategories",
+        "execution_time": 3.6665985584259033,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which cities host institutions for both Physics and Chemistry laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City) WITH ci, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN ci.name AS city",
+        "execution_time": 13.187589883804321,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 72.55932259559631,
+      "average_query_time": 7.255932259559631,
+      "cache_hits": 0,
+      "cache_misses": 10,
+      "cache_hit_rate": 0.0,
+      "final_cache_stats": {
+        "cache_size": 10,
+        "max_size": 128,
+        "total_requests": 10,
+        "hits": 0,
+        "misses": 10,
+        "hit_rate": 0.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 128,
+    "query_set": "mixed_pattern",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 4.255303382873535,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "How many scholars won prizes in Chemistry?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.09461116790771484,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 9.783232927322388,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "List all scholars who won a Medicine prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName",
+        "execution_time": 13.460710763931274,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "How many scholars won prizes in Chemistry?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN COUNT(DISTINCT s) AS count",
+        "execution_time": 0.04037332534790039,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which continents have Chemistry laureates by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WHERE toLower(p.category) CONTAINS toLower('chemistry') RETURN DISTINCT con.name AS continent",
+        "execution_time": 8.499775886535645,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which scholars won prizes in Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT s.fullName",
+        "execution_time": 4.829277038574219,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "Which institutions have affiliated Physics laureates?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(p.category) CONTAINS toLower('Physics') RETURN DISTINCT i.name AS institution",
+        "execution_time": 11.918318271636963,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "List all scholars who won a Medicine prize.",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS toLower('medicine') RETURN DISTINCT s.knownName",
+        "execution_time": 4.4100048542022705,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "How many prizes were awarded in Economics after 1980?",
+        "cypher_query": "MATCH (p:Prize) WHERE toLower(p.category) CONTAINS toLower('economics') AND p.awardYear > 1980 RETURN COUNT(DISTINCT p) AS count",
+        "execution_time": 8.30523943901062,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 65.59684705734253,
+      "average_query_time": 6.559684705734253,
+      "cache_hits": 4,
+      "cache_misses": 6,
+      "cache_hit_rate": 40.0,
+      "final_cache_stats": {
+        "cache_size": 6,
+        "max_size": 128,
+        "total_requests": 10,
+        "hits": 4,
+        "misses": 6,
+        "hit_rate": 40.0,
+        "evictions": 0
+      }
+    }
+  },
+  {
+    "cache_size": 128,
+    "query_set": "complex_queries",
+    "total_queries": 10,
+    "queries": [
+      {
+        "query_no": 1,
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 8.356448650360107,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 2,
+        "question": "For each prize category, how many distinct laureates are there?",
+        "cypher_query": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH toLower(p.category) AS category, COUNT(DISTINCT s) AS numLaureates RETURN category, numLaureates",
+        "execution_time": 0.0745689868927002,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 3,
+        "question": "Which countries have produced laureates in both Physics and Chemistry by birth?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'physics' IN categories AND 'chemistry' IN categories RETURN co.name AS country",
+        "execution_time": 3.4625611305236816,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 4,
+        "question": "Which laureates were affiliated with institutions on a different continent than their birth continent?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) RETURN DISTINCT s.knownName",
+        "execution_time": 5.886429786682129,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 5,
+        "question": "For each continent, how many distinct laureates have affiliated institutions there?",
+        "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)-[:IS_COUNTRY_IN]->(con:Continent) WITH con, COUNT(DISTINCT s) AS numLaureates RETURN con.name AS continent, numLaureates",
+        "execution_time": 0.1108255386352539,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 6,
+        "question": "Which scholars were born in the United States but affiliated with the University of Cambridge?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(co.name) CONTAINS toLower('united states') AND toLower(i.name) CONTAINS toLower('university of cambridge') RETURN DISTINCT s.knownName",
+        "execution_time": 0.03661179542541504,
+        "cache_hit": true,
+        "success": true
+      },
+      {
+        "query_no": 7,
+        "question": "Which countries have produced laureates who won prizes in both Medicine and Physics?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) MATCH (s)-[:WON]->(p:Prize) WITH co, COLLECT(DISTINCT toLower(p.category)) AS categories WHERE 'medicine' IN categories AND 'physics' IN categories RETURN co.name AS country",
+        "execution_time": 8.477815628051758,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 8,
+        "question": "For each birth continent, how many laureates later worked at institutions on a different continent?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City)-[:IS_CITY_IN]->(bCountry:Country)-[:IS_COUNTRY_IN]->(bCont:Continent) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City)-[:IS_CITY_IN]->(aCountry:Country)-[:IS_COUNTRY_IN]->(aCont:Continent) WHERE toLower(bCont.name) <> toLower(aCont.name) WITH bCont, COUNT(DISTINCT s) AS numLaureates RETURN bCont.name AS birthContinent, numLaureates",
+        "execution_time": 0.1618189811706543,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 9,
+        "question": "Which scholars have affiliations in at least three different countries?",
+        "cypher_query": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WITH s, COUNT(DISTINCT co) AS numCountries WHERE numCountries >= 3 RETURN s.knownName AS scholar, numCountries",
+        "execution_time": 8.747137308120728,
+        "cache_hit": false,
+        "success": true
+      },
+      {
+        "query_no": 10,
+        "question": "Which laureates were born in cities that host institutions they were also affiliated with?",
+        "cypher_query": "MATCH (s:Scholar)-[:BORN_IN]->(bCity:City) MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(aCity:City) WHERE toLower(bCity.name) = toLower(aCity.name) RETURN DISTINCT s.knownName AS laureate, bCity.name AS city",
+        "execution_time": 11.19520378112793,
+        "cache_hit": false,
+        "success": true
+      }
+    ],
+    "summary": {
+      "total_execution_time": 46.509421586990356,
+      "average_query_time": 4.650942158699036,
+      "cache_hits": 1,
+      "cache_misses": 9,
+      "cache_hit_rate": 10.0,
+      "final_cache_stats": {
+        "cache_size": 9,
+        "max_size": 128,
+        "total_requests": 10,
+        "hits": 1,
+        "misses": 9,
+        "hit_rate": 10.0,
+        "evictions": 0
+      }
+    }
+  }
+]
